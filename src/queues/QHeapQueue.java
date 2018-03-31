@@ -20,17 +20,6 @@ public class QHeapQueue<T extends Comparable<T>>  {
     private ArrayList<T> values;
     private static int d; 
 
-    private static int parent(int i) { 
-        return (i - 1) / d; 
-    }
-    
-    private static int kthChild(int i, int k) {
-        return d * i + k;
-    }
-
-    private boolean less(T a, T b) {
-        return a.compareTo(b) < 0;
-    }
 
     public QHeapQueue(int _d) {
         d = _d; 
@@ -53,15 +42,6 @@ public class QHeapQueue<T extends Comparable<T>>  {
         assert isHeap();
     }
 
-    public void heapify(int a) {
-        T tmp = (T) values.get(a);
-        while ((a > 0) && (less((T) values.get(parent(a)), tmp))) {
-            values.set(a, values.get(parent(a)));
-            a = parent(a);
-        }
-        values.set(a, tmp);
-    }
-
     public T max() {
         if (values.isEmpty())
             throw new IllegalStateException("queue is empty!!   max()");
@@ -73,6 +53,69 @@ public class QHeapQueue<T extends Comparable<T>>  {
             throw new IllegalStateException("queue is empty!!   removeMax()");
         return (T) dequeue();
         // return null;
+    }
+
+    public ArrayList<T> nLargest(int n) {
+        
+        if (values.size() < n)
+            throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
+
+        ArrayList<T> elems = new ArrayList<T>(n);
+        for (int i = 0; i < n; i++) {
+            elems.add((T) values.get(i));
+        }
+        return elems; 
+    }
+
+    public ArrayList<T> removeNLargest(int n) {
+        ArrayList<T> elems = nLargest(n);
+        
+        // TODO: faster?? 
+        for (int i = 0; i < n; i++) {
+            dequeue();
+        }
+        assert isHeap();
+        return elems; 
+    }
+
+    public void heapify(int a) {
+        T tmp = (T) values.get(a);
+        while ((a > 0) && (less((T) values.get(parent(a)), tmp))) {
+            values.set(a, values.get(parent(a)));
+            a = parent(a);
+        }
+        values.set(a, tmp);
+    }
+
+    public boolean isHeap() {
+        return isHeap(1);
+    }
+
+    protected boolean isHeap(int i) {
+        while (i < values.size() && !less((T) values.get(parent(i)), (T) values.get(i))) {
+            i++;
+        }
+        return i >= values.size()-d;
+    }
+
+    
+    public int size() {
+        return values.size();
+    }
+
+    public void merge(QHeapQueue<T> queue) {
+        assert isHeap();
+        int cnt = queue.size();
+        for (int i = 0; i < cnt; i++) {
+            T val = (T) queue.removeMax();
+            insertUnordered(val);
+        }
+        heapify(values.size()-1);
+        assert isHeap();
+    }
+
+    public boolean isEmpty() {
+        return values.isEmpty();
     }
 
     private T dequeue() {
@@ -114,59 +157,6 @@ public class QHeapQueue<T extends Comparable<T>>  {
         return c;
     }
 
-    public int size() {
-        return values.size();
-    }
-
-    public ArrayList<T> nLargest(int n) {
-        
-        if (values.size() < n)
-            throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
-
-        ArrayList<T> elems = new ArrayList<T>(n);
-        for (int i = 0; i < n; i++) {
-            elems.add((T) values.get(i));
-        }
-        return elems; 
-    }
-
-    public ArrayList<T> removeNLargest(int n) {
-        ArrayList<T> elems = nLargest(n);
-        
-        // TODO: faster?? 
-        for (int i = 0; i < n; i++) {
-            dequeue();
-        }
-        assert isHeap();
-        return elems; 
-    }
-
-    public void merge(QHeapQueue<T> queue) {
-        assert isHeap();
-        int cnt = queue.size();
-        for (int i = 0; i < cnt; i++) {
-            T val = (T) queue.removeMax();
-            insertUnordered(val);
-        }
-        heapify(values.size()-1);
-        assert isHeap();
-    }
-
-    public boolean isEmpty() {
-        return values.isEmpty();
-    }
-
-    public boolean isHeap() {
-        return isHeap(1);
-    }
-
-    protected boolean isHeap(int i) {
-        while (i < values.size() && !less((T) values.get(parent(i)), (T) values.get(i))) {
-            i++;
-        }
-        return i >= values.size()-d;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -177,5 +167,17 @@ public class QHeapQueue<T extends Comparable<T>>  {
         }
         sb.append("]");
         return sb.toString();
+    }
+
+    private static int parent(int i) { 
+        return (i - 1) / d; 
+    }
+    
+    private static int kthChild(int i, int k) {
+        return d * i + k;
+    }
+
+    private boolean less(T a, T b) {
+        return a.compareTo(b) < 0;
     }
 }

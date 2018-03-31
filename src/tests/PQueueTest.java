@@ -9,12 +9,17 @@
 
 package tests;
 
-import tests.TestBinaryHeap;
+import java.io.IOException;
+
+import utils.CsvFile;
+
+// import tests.TestBinaryHeap;
+// import tests.TestQHeapQueue;
 
 public class PQueueTest {
 
     public static void main(String[] args) {
-        TestBinaryHeap tBH = new TestBinaryHeap();
+        // TestBinaryHeap tBH = new TestBinaryHeap();
         // tBH.simpleTests();
         // tBH.testInsert();
         // tBH.testMax();
@@ -23,20 +28,33 @@ public class PQueueTest {
         // tBH.testRemoveNLargest();
         // tBH.testMerge();
 
-        TestQHeapQueue qH = new TestQHeapQueue();
-        for (int i = 2; i < 10; i++) {
-            System.out.println("--------------------------------------------------"); 
-            System.out.println("--------------------------------------------------"); 
-            System.out.println("testing QHeapQueue()  with d = " + i); 
-            System.out.println("--------------------------------------------------"); 
-            System.out.println("--------------------------------------------------"); 
+        // TestQHeapQueue qH = new TestQHeapQueue();
+        // for (int i = 2; i < 10; i++) {
+        //     System.out.println("--------------------------------------------------"); 
+        //     System.out.println("--------------------------------------------------"); 
+        //     System.out.println("testing QHeapQueue()  with d = " + i); 
+        //     System.out.println("--------------------------------------------------"); 
+        //     System.out.println("--------------------------------------------------"); 
 
-            qH.testInsert(i);
-            qH.testMax(i);
-            qH.testRemoveMax(i);
-            qH.testNLargest(i);
-            qH.testRemoveNLargest(i);
-            qH.testMerge(i);
+        //     qH.testInsert(i);
+        //     qH.testMax(i);
+        //     qH.testRemoveMax(i);
+        //     qH.testNLargest(i);
+        //     qH.testRemoveNLargest(i);
+        //     qH.testMerge(i);
+        // }
+
+        // runtime tests
+        RunTimeTests RT = new RunTimeTests();
+        try {
+            CsvFile f = new CsvFile("timings_insert.csv");
+            RT.testInsertBinaryHeap(f);
+            RT.testInsertQHeap(f);
+            f.closeFile();
+        } catch (IOException ex) {
+            System.out.println("something went wrong with accessing the file");
+            System.out.println(ex.toString());
+            ex.printStackTrace();
         }
     }
 }
