@@ -59,9 +59,12 @@ public class PQueueTest {
         System.out.println(h);
 
         while (!h.isEmpty()) {
-            System.out.println(h.dequeue());
+            System.out.print(h.dequeue() + "  ");
         }
+        System.out.println();
         System.out.println(h);
+        System.out.println();
+        System.out.println();
     }
 
     public static void testInsert() {
@@ -234,8 +237,7 @@ public class PQueueTest {
         // TODO !!!!!!!
         // assertArrayLists(n4, n4_expected);
 
-
-        // elements still in list!
+        // elements have been removed
         assert(h.size() == 3);
         assert(h.max() == 10);
 
@@ -282,13 +284,13 @@ public class PQueueTest {
 
 
     public static void main(String[] args) {
-        // simpleTests();
-        // testInsert();
-        // testInsertEnqueue();
-        // testMax();
-        // testRemoveMax();
-        // testNLargest();
-        // testRemoveNLargest();
+        simpleTests();
+        testInsert();
+        testInsertEnqueue();
+        testMax();
+        testRemoveMax();
+        testNLargest();
+        testRemoveNLargest();
         testMerge();
     }
 }
