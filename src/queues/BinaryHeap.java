@@ -16,8 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class BinaryHeap<T extends Comparable<T>> extends Heap {
-    
-    // M.W.
+
     public BinaryHeap() {
         super(); 
     }
@@ -29,7 +28,7 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
     public void insertUnordered(T[] elemArray) {
         List<T> newList = Arrays.asList(elemArray);
         values.addAll(newList);
-        }
+    }
 
     public void heapify(int a) {
         int cnt = values.size() - 1;
@@ -93,19 +92,15 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         if (values.size() < n)
             throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
 
-        assert isHeap();
         ArrayList<T> elems = new ArrayList<T>(n);
         for (int i = 0; i < n; i++) {
             elems.add((T) values.get(i));
         }
-        assert isHeap();
         return elems; 
     }
 
     public ArrayList<T> removeNLargest(int n) {
-        assert isHeap();
         ArrayList<T> elems = nLargest(n);
-        // values.removeRange(0, n); is protected :-(        
         values.subList(0, n).clear();
         assert isHeap();
         return elems; 
@@ -114,14 +109,11 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
     public void merge(BinaryHeap<T> queue) {
         assert isHeap();
 
-        System.out.println("queue.size = " + queue.size());
         int cnt = queue.size();
         for (int i = 0; i < cnt; i++) {
             T val = (T) queue.removeMax();
-            // System.out.println("adding value " + val + ",   i = " + i + "   queue.size() = " + queue.size());
             insertUnordered(val);
         }
-        // System.out.println("after for loop  ");
         heapify(values.size()-1);
         assert isHeap();
     }
