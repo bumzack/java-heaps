@@ -93,15 +93,17 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         if (values.size() < n)
             throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
 
+        assert isHeap();
         ArrayList<T> elems = new ArrayList<T>(n);
         for (int i = 0; i < n; i++) {
             elems.add((T) values.get(i));
         }
+        assert isHeap();
         return elems; 
     }
 
     public ArrayList<T> removeNLargest(int n) {
-        
+        assert isHeap();
         ArrayList<T> elems = nLargest(n);
         // values.removeRange(0, n); is protected :-(        
         values.subList(0, n).clear();

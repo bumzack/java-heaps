@@ -140,41 +140,52 @@ public class QHeapQueue<T extends Comparable<T>>  {
     //      [java] 	at tests.PQueueTest.main(PQueueTest.java:179)
 
     public ArrayList<T> nLargest(int n) {
-        // if (values.size() < n)
-        //     throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
+        
+        if (values.size() < n)
+            throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
 
+        assert isHeap();
         ArrayList<T> elems = new ArrayList<T>(n);
-        // for (int i = 0; i < n; i++) {
-        //     elems.add((T) values.get(i));
-        // }
+        for (int i = 0; i < n; i++) {
+            elems.add((T) values.get(i));
+        }
+        assert isHeap();
         return elems; 
     }
 
     public ArrayList<T> removeNLargest(int n) {
-        
+        assert isHeap();
         ArrayList<T> elems = nLargest(n);
-        // values.removeRange(0, n); is protected :-(        
-        // values.subList(0, n).clear();
-        // isHeap();
-        // return elems; 
-        return null; 
+        //  values.removeRange(0, n);       // is protected :-(        
+        
+        // TODO: faster?? 
+        for (int i = 0; i < n; i++) {
+            dequeue();
+        }
+        assert isHeap();
+        return elems; 
     }
 
     public void merge(QHeapQueue<T> queue) {
-        // isHeap();
+        assert isHeap();
 
-        // System.out.println("queue.size = " + queue.size());
-        // int cnt = queue.size();
-        // for (int i = 0; i < cnt; i++) {
-        //     T val = (T) queue.removeMax();
-        //     // System.out.println("adding value " + val + ",   i = " + i + "   queue.size() = " + queue.size());
-        //     insertUnordered(val);
-        // }
-        // // System.out.println("after for loop  ");
-        // heapify(values.size()-1);
-        // if (!isHeap()) {
-        //     throw new IllegalStateException("heap is not a heap :-(");
-        // }
+        System.out.println("queue.size = " + queue.size());
+
+        System.out.println("BEFORE for loop   h =  " + values);
+        System.out.println("BEFORE for loop   h.size() =  " + values.size());
+
+
+        int cnt = queue.size();
+        for (int i = 0; i < cnt; i++) {
+            T val = (T) queue.removeMax();
+            System.out.println("adding value " + val + ",   i = " + i + "   queue.size() = " + queue.size());
+            insertUnordered(val);
+        }
+        System.out.println("AFTER   for loop   h =  " + values);
+        System.out.println("AFTER for loop   h.size() =  " + values.size());
+
+        heapify(values.size()-1);
+        assert isHeap();
     }
 
     public boolean isEmpty() {
@@ -186,33 +197,18 @@ public class QHeapQueue<T extends Comparable<T>>  {
     }
 
     protected boolean isHeap(int i) {
-        while (i < values.size() && !less(values.get(parent(i)), values.get(i))) {
+        // System.out.println("\n\n\n isHeap()");
+        while (i < values.size() && !less((T) values.get(parent(i)), (T) values.get(i))) {
+            // System.out.println("parent:  values[" + parent(i) + "] = " + (T) values.get(parent(i)));
+            // System.out.println("            > ");
+
+            // System.out.println("child:  values[" + i + "] = " + (T) values.get(i));
+            // System.out.println("i = " + i + "\n\n");
             i++;
         }
-        return i >= values.size();
+        // System.out.println("afer WHILE:   i = " + i  + "   size = " + values.size());
+        return i >= values.size()-d;
     }
-
-
-    // private boolean isHeap() {
-    //     while (i < value.size()) {
-    //         // for (int j = 0; j < d; j++) {
-    //         //     if (less(values.get(parent(i)), values.get(i))) {
-    //         //         return false; 
-    //         //     }
-    //         // }
-    //     }
-    //     return i >= values.size();
-    // }
-
-
-
-    // public void print(String  s) {
-    //     System.out.println(s);
-    //     for (int i = 0; i < values.size(); i++) {
-    //         System.out.print(values.get(i) + " ");
-    //     }
-    //     System.out.println();
-    // }
 
     @Override
     public String toString() {

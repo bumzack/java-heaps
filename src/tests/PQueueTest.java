@@ -14,7 +14,7 @@ import tests.TestBinaryHeap;
 public class PQueueTest {
 
     public static void main(String[] args) {
-        // TestBinaryHeap tBH = new TestBinaryHeap();
+        TestBinaryHeap tBH = new TestBinaryHeap();
         // tBH.simpleTests();
         // tBH.testInsert();
         // tBH.testMax();
@@ -24,11 +24,19 @@ public class PQueueTest {
         // tBH.testMerge();
 
         TestQHeapQueue qH = new TestQHeapQueue();
-        qH.testInsert(4);
-        qH.testMax(4);
-        qH.testRemoveMax(2);
-        // qH.testNLargest(2);
-        // qH.testRemoveNLargest(2);
-        // qH.testMerge(2);
+        for (int i = 2; i < 10; i++) {
+            System.out.println("--------------------------------------------------"); 
+            System.out.println("--------------------------------------------------"); 
+            System.out.println("testing QHeapQueue()  with d = " + i); 
+            System.out.println("--------------------------------------------------"); 
+            System.out.println("--------------------------------------------------"); 
+
+            qH.testInsert(i);
+            qH.testMax(i);
+            qH.testRemoveMax(i);
+            qH.testNLargest(i);
+            qH.testRemoveNLargest(i);
+            qH.testMerge(i);
+        }
     }
 }
