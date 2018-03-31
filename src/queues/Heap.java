@@ -153,8 +153,8 @@ public class Heap<T extends Comparable<T>> {
 
 
     // M.W.
-    // G.S: changed from private to protected
-    protected boolean isHeap() {
+    // G.S: changed from private to public
+    public boolean isHeap() {
         return isHeap(1);
     }
 

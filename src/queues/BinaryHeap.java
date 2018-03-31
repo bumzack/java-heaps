@@ -31,7 +31,7 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         values.addAll(newList);
         }
 
-    private void heapify(int a) {
+    public void heapify(int a) {
         int cnt = values.size() - 1;
         
         for (int i = cnt / 2; i >= 0; i--)
@@ -109,4 +109,20 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         return elems; 
     }
 
+    public void merge(BinaryHeap<T> queue) {
+        isHeap();
+
+        System.out.println("queue.size = " + queue.size());
+        int cnt = queue.size();
+        for (int i = 0; i < cnt; i++) {
+            T val = (T) queue.removeMax();
+            // System.out.println("adding value " + val + ",   i = " + i + "   queue.size() = " + queue.size());
+            insertUnordered(val);
+        }
+        // System.out.println("after for loop  ");
+        heapify(values.size()-1);
+        if (!isHeap()) {
+            throw new IllegalStateException("heap is not a heap :-(");
+        }
+    }
 }

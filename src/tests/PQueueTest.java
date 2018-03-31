@@ -245,13 +245,50 @@ public class PQueueTest {
         System.out.println(); 
     }
 
+    public static void testMerge() {
+        System.out.println("--------------------------------------------------"); 
+        System.out.println("testing testMerge() "); 
+        System.out.println("--------------------------------------------------"); 
+
+        BinaryHeap<Integer> h1 = getDummyDataInsert();
+
+        BinaryHeap<Integer> h2 = new BinaryHeap<Integer>();
+        h2.enqueue(4);
+        h2.enqueue(5);            
+        h2.enqueue(6);
+
+        System.out.println("heap h2.size(): " + h2.size() ); 
+        
+        // h2.enqueue(2);
+        // h2.enqueue(20);            
+        // h2.enqueue(200);
+        // h2.enqueue(1);
+        // h2.enqueue(10);
+        // h2.enqueue(100);
+        System.out.println("heap h1 contains the following elements: " + h1 ); 
+        System.out.println("heap h2 contains the following elements: " + h2 ); 
+        
+        h1.merge(h2);
+
+        assert h1.size() == 9;
+        assert h1.max() == 200;
+
+        System.out.println(h1);
+        System.out.println();
+        System.out.println("merged queues: ");
+        System.out.println(); 
+        h1.printAsTree();
+    }
+
+
     public static void main(String[] args) {
-        simpleTests();
-        testInsert();
-        testInsertEnqueue();
-        testMax();
-        testRemoveMax();
-        testNLargest();
-        testRemoveNLargest();
+        // simpleTests();
+        // testInsert();
+        // testInsertEnqueue();
+        // testMax();
+        // testRemoveMax();
+        // testNLargest();
+        // testRemoveNLargest();
+        testMerge();
     }
 }
