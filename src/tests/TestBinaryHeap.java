@@ -78,10 +78,10 @@ public class TestBinaryHeap {
         System.out.println("heap contains the following elements: "); 
         System.out.println(h);
 
-        assert(h.size() == 6);
+        assert h.size() == 6;
         System.out.println("insert 111");
         h.insert(111);
-        assert(h.size() == 7);
+        assert h.size() == 7;
         System.out.println("insert done");
 
         System.out.println(h);
@@ -100,8 +100,8 @@ public class TestBinaryHeap {
 
         int max = 100000;
         h.insert(max);
-        assert(h.size() == 7);
-        assert(h.max() == max);
+        assert h.size() == 7;
+        assert h.max() == max;
 
         System.out.println(h);
         System.out.println();
@@ -120,16 +120,16 @@ public class TestBinaryHeap {
 
         int max = 100000;
         h.insert(max);
-        assert(h.size() == 7);
-        assert(h.max() == max);
+        assert h.size() == 7;
+        assert h.max() == max;
 
-        assert(h.removeMax() == max);
-        assert(h.removeMax() == 200);
-        assert(h.removeMax() == 100);
-        assert(h.removeMax() == 20);
-        assert(h.removeMax() == 10);
-        assert(h.removeMax() == 2);
-        assert(h.removeMax() == 1);
+        assert h.removeMax() == max;
+        assert h.removeMax() == 200;
+        assert h.removeMax() == 100;
+        assert h.removeMax() == 20;
+        assert h.removeMax() == 10;
+        assert h.removeMax() == 2;
+        assert h.removeMax() == 1;
 
         System.out.println(h);
         System.out.println();
@@ -138,7 +138,7 @@ public class TestBinaryHeap {
     }
 
     public static<T> void assertArrayLists(ArrayList<T> arr, ArrayList<T> arr_expected) {
-        assert(arr.size() == arr_expected.size());
+        assert arr.size() == arr_expected.size();
         for (int i = 0; i < arr.size(); i++) {
             System.out.println("arr.get(i)           = " + arr.get(i));
             System.out.println("arr_expected.get(i)  = " + arr_expected.get(i));
@@ -156,8 +156,8 @@ public class TestBinaryHeap {
 
         Integer max = 100000;
         h.insert(max);
-        assert(h.size() == 7);
-        assert(h.max() == max);
+        assert h.size() == 7;
+        assert h.max() == max;
         System.out.println(h);
 
         // this works :-(
@@ -185,8 +185,8 @@ public class TestBinaryHeap {
 
 
         // elements still in list!
-        assert(h.size() == 7);
-        assert(h.max() == max);
+        assert h.size() == 7;
+        assert h.max() == max;
 
         System.out.println(h);
         System.out.println();
@@ -204,8 +204,8 @@ public class TestBinaryHeap {
         
         Integer max = 100000;
         h.insert(max);
-        assert(h.size() == 7);
-        assert(h.max() == max);
+        assert h.size() == 7;
+        assert h.max() == max;
         System.out.println(h);
 
         ArrayList<Integer> n4_expected = new ArrayList<Integer>(4);
@@ -223,8 +223,8 @@ public class TestBinaryHeap {
         // assertArrayLists(n4, n4_expected);
 
         // elements have been removed
-        assert(h.size() == 3);
-        assert(h.max() == 10);
+        assert h.size() == 3;
+        assert h.max() == 10;
 
         System.out.println(h);
         System.out.println();
