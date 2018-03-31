@@ -60,10 +60,10 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
     }
 
     public void insert(T elem) {
-        isHeap();
+        assert isHeap();
         insertUnordered(elem);
         heapify(values.size()-1);
-        assert(isHeap());
+        assert isHeap();
     }
 
     public T max() {
@@ -105,12 +105,12 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         ArrayList<T> elems = nLargest(n);
         // values.removeRange(0, n); is protected :-(        
         values.subList(0, n).clear();
-        isHeap();
+        assert isHeap();
         return elems; 
     }
 
     public void merge(BinaryHeap<T> queue) {
-        isHeap();
+        assert isHeap();
 
         System.out.println("queue.size = " + queue.size());
         int cnt = queue.size();
@@ -121,8 +121,6 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         }
         // System.out.println("after for loop  ");
         heapify(values.size()-1);
-        if (!isHeap()) {
-            throw new IllegalStateException("heap is not a heap :-(");
-        }
+        assert isHeap();
     }
 }

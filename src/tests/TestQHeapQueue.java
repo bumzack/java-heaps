@@ -79,20 +79,29 @@ public class TestQHeapQueue {
 
         QHeapQueue<Integer> h = getDummyDataInsert(d);
         System.out.println("heap contains the following elements: "); 
-        System.out.println(h);
 
         int max = 100000;
         h.insert(max);
         assert(h.size() == 7);
         assert(h.max() == max);
 
-        assert(h.removeMax() == max);
-        assert(h.removeMax() == 200);
-        assert(h.removeMax() == 100);
-        assert(h.removeMax() == 20);
-        assert(h.removeMax() == 10);
-        assert(h.removeMax() == 2);
-        assert(h.removeMax() == 1);
+        System.out.println(h);
+        // Integer m = h.removeMax();
+        // System.out.println("m =  " + m); 
+        // while (!h.isEmpty()) {
+        //     System.out.println("max =  " + h.removeMax()); 
+        //     System.out.println("h.isEmpty() =  " + h.isEmpty()); 
+        // }
+
+        assert h.removeMax() == max;
+        assert h.removeMax() == 200;
+        assert h.removeMax() == 100;
+        assert h.removeMax() == 20;
+        assert h.removeMax() == 10;
+        assert h.removeMax() == 2;
+        assert h.removeMax() == 1;
+
+        assert h.isEmpty();
 
         System.out.println(h);
         System.out.println();

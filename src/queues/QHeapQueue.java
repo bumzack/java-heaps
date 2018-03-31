@@ -17,69 +17,115 @@ import java.util.List;
 
 public class QHeapQueue<T extends Comparable<T>>  {
     
-    ArrayList<T> values;
-    int d; 
+    private ArrayList<T> values;
+    private static int d; 
+
+    protected static int parent(int i) { 
+        return (i - 1) / d; 
+    }
+    
+    protected static int kthChild(int i, int k) {
+        return d * i + k;
+    }
+
+
+    protected boolean less(T a, T b) {
+        return a.compareTo(b) < 0;
+    }
 
     public QHeapQueue(int _d) {
         d = _d; 
+        values = new ArrayList<T>();
     }
 
     public void insertUnordered(T elem) {
-        // values.add(elem);
+        values.add(elem);
     }
 
     public void insertUnordered(T[] elemArray) {
-        // List<T> newList = Arrays.asList(elemArray);
-        // values.addAll(newList);
+        List<T> newList = Arrays.asList(elemArray);
+        values.addAll(newList);
+    }
+    
+    public void insert(T elem) {
+        assert isHeap();
+
+        // print("before");
+
+        insertUnordered(elem);
+        // print("after insertUnordered()");
+        
+        heapify(values.size()-1);
+        // print("after heapify()");
+
+        assert isHeap();
     }
 
     public void heapify(int a) {
-        // int cnt = values.size() - 1;
+        T tmp = (T) values.get(a);
+        // System.out.println("a = " + a + " ;   tmp = " + tmp + "        values.get(parent(a)) =   " + (T) values.get(parent(a)));
+        // System.out.println("less(tmp, (T) values.get(parent(a) = " + less( (T) values.get(parent(a)), tmp));
         
-        // for (int i = cnt / 2; i >= 0; i--)
-        //     heapifyHelper(i, cnt);
-
-        // for (int i = cnt; i > 0; i--) {
-        //     Collections.swap(values, 0, i);
-        //     cnt--;
-        //     heapifyHelper(0, cnt);
-        // }
-    }
-
-    private void heapifyHelper(int i, int cnt) {
-        // int left = left(i);
-        // int right = right(i);
-        // int greatest = i;
-
-        // if (left <= cnt && (Integer) values.get(left) < ((Integer) values.get(greatest)))
-        // greatest = left;
-        // if (right <= cnt && (Integer) values.get(right) < ((Integer) values.get(greatest)))
-        // greatest = right;
-        // if (greatest != i) {
-        //     Collections.swap(values, i, greatest);
-        //     heapifyHelper(greatest, cnt);
-        // }
-    }
-
-    public void insert(T elem) {
-        // isHeap();
-        // insertUnordered(elem);
-        // heapify(values.size()-1);
-        // assert(isHeap());
+        while ((a > 0) && (less((T) values.get(parent(a)), tmp))) {
+            // System.out.println("while   ");
+            values.set(a, values.get(parent(a)));
+            a = parent(a);
+        }
+        values.set(a, tmp);
     }
 
     public T max() {
-        // if (values.isEmpty())
-        //     throw new IllegalStateException("queue is empty!!   max()");
-        // return (T) values.get(0);
-        return null;
+        if (values.isEmpty())
+            throw new IllegalStateException("queue is empty!!   max()");
+        return (T) values.get(0);
+        // return null;
     }
 
     public T removeMax() {
-        // if (values.isEmpty())
-        //     throw new IllegalStateException("queue is empty!!   removeMax()");
-        // return (T) dequeue();
-        return null;
+        if (values.isEmpty())
+            throw new IllegalStateException("queue is empty!!   removeMax()");
+        return (T) dequeue();
+        // return null;
+    }
+
+    private T dequeue() {
+        if (values.isEmpty())
+            throw new IllegalStateException("queue is empty!!   removeMax()");
+        T ret = (T) values.get(0);
+        values.set(0, values.get(values.size()-1));
+        values.remove(values.size()-1);
+        if (!values.isEmpty()) {
+            downHeap(0);
+        }
+        return ret; 
+    }
+
+    private void downHeap(int i) {
+        int child;
+        T tmp = (T) values.get(i);
+        while (kthChild(i, 1) < values.size()) {
+            child = getMinChild(i);
+            if (less(tmp, (T) values.get(child))) {
+                values.set(i, values.get(child));
+            } else {
+                break;
+            }
+            i = child;
+        }
+        // heap[ind] = tmp;
+        values.set(i, tmp);
+    }
+
+    private int getMinChild(int i) {
+        int c = kthChild(i, 1);
+        int k = 2;
+        int pos = kthChild(i, k);
+        while ((k <= d) && (pos < values.size())) {
+            if (less((T) values.get(c), (T) values.get(pos)))
+                c = pos;
+            pos = kthChild(i, k++);
+        }    
+        return c;
     }
 
     public int size() {
@@ -132,6 +178,51 @@ public class QHeapQueue<T extends Comparable<T>>  {
     }
 
     public boolean isEmpty() {
-        return false;
+        return values.isEmpty();
+    }
+
+    public boolean isHeap() {
+        return isHeap(1);
+    }
+
+    protected boolean isHeap(int i) {
+        while (i < values.size() && !less(values.get(parent(i)), values.get(i))) {
+            i++;
+        }
+        return i >= values.size();
+    }
+
+
+    // private boolean isHeap() {
+    //     while (i < value.size()) {
+    //         // for (int j = 0; j < d; j++) {
+    //         //     if (less(values.get(parent(i)), values.get(i))) {
+    //         //         return false; 
+    //         //     }
+    //         // }
+    //     }
+    //     return i >= values.size();
+    // }
+
+
+
+    // public void print(String  s) {
+    //     System.out.println(s);
+    //     for (int i = 0; i < values.size(); i++) {
+    //         System.out.print(values.get(i) + " ");
+    //     }
+    //     System.out.println();
+    // }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("QHeapQueue = [");
+        for (int i = 0; i < values.size(); i++) {
+            if (i > 0) sb.append(" ");
+            sb.append(values.get(i));
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
