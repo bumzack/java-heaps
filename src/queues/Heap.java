@@ -17,7 +17,9 @@ public class Heap<T extends Comparable<T>> {
 
     // M.W.
     public Heap() {
+        System.out.println("Heap constructor BEGIN");
         values = new ArrayList<T>();
+        System.out.println("Heap constructor END");
     }
 
     // M.W.
@@ -112,6 +114,7 @@ public class Heap<T extends Comparable<T>> {
     }
 
     protected boolean isHeap(int i) {
+        // System.out.println("isHeap!");
         // assert(i > 0 && i <= values.size());
         while (i < values.size() && !less(values.get(parent(i)), values.get(i))) {
             i++;

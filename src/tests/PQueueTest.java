@@ -57,6 +57,28 @@ public class PQueueTest {
 
         System.out.println("insert 111");
         h.insert(111);
+        System.out.println("insert done");
+
+        System.out.println(h);
+        System.out.println();
+        System.out.println(); 
+    }
+
+
+    public static void testInsertEnqueue() {
+
+        System.out.print("--------------------------------------------------"); 
+        System.out.print("testInsertEnqueue() "); 
+        System.out.print("--------------------------------------------------"); 
+
+        BinaryHeap<Integer> h = new BinaryHeap<Integer>();
+        h.enqueue(2);
+        h.enqueue(20);            
+        h.enqueue(200);
+        h.enqueue(1);
+        h.enqueue(10);
+        h.enqueue(100);
+        h.enqueue(111);
 
         System.out.println(h);
         System.out.println();
@@ -64,7 +86,8 @@ public class PQueueTest {
     }
 
     public static void main(String[] args) {
-        simpleTests();
-    //    testInsert();
+        // simpleTests();
+        testInsert();
+        testInsertEnqueue();
     }
 }

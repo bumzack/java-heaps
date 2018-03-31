@@ -4,7 +4,7 @@
   <property name="program.jar" value="heap.jar" />
 
   <target name="compile" description="Compile Java sources">
-    <javac srcdir="src" destdir="bin" includeantruntime="false">
+    <javac srcdir="src" destdir="bin" includeantruntime="false" debug="true">
       <include name="**/*.java" />
     </javac>
   </target>
