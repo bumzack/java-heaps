@@ -39,9 +39,9 @@ public class PQueueTest {
 
     public static void testInsert() {
 
-        System.out.print("--------------------------------------------------"); 
-        System.out.print("testing insert() "); 
-        System.out.print("--------------------------------------------------"); 
+        System.out.println("--------------------------------------------------"); 
+        System.out.println("testing insert() "); 
+        System.out.println("--------------------------------------------------"); 
 
         BinaryHeap<Integer> h = new BinaryHeap<Integer>();
         System.out.println(h);
@@ -52,7 +52,7 @@ public class PQueueTest {
         h.enqueue(1);
         h.enqueue(10);
         h.enqueue(100);
-        System.out.print("heap contains the following elements: "); 
+        System.out.println("heap contains the following elements: "); 
         System.out.println(h);
 
         System.out.println("insert 111");
@@ -67,9 +67,9 @@ public class PQueueTest {
 
     public static void testInsertEnqueue() {
 
-        System.out.print("--------------------------------------------------"); 
-        System.out.print("testInsertEnqueue() "); 
-        System.out.print("--------------------------------------------------"); 
+        System.out.println("--------------------------------------------------"); 
+        System.out.println("testInsertEnqueue() "); 
+        System.out.println("--------------------------------------------------"); 
 
         BinaryHeap<Integer> h = new BinaryHeap<Integer>();
         h.enqueue(2);
