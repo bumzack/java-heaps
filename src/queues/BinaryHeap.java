@@ -110,8 +110,4 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
             throw new IllegalStateException("insert()  OHHHH NOOOO  It is NOT a Heap !!!");
         }
     }
-
-    public void printAsTree() {
-        //TODO
-    }
 }

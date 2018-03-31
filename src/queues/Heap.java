@@ -107,6 +107,51 @@ public class Heap<T extends Comparable<T>> {
         return sb.toString();
     }
 
+    public void printAsTree() {
+        // StringBuilder sb = new StringBuilder();
+
+        // // sb.append(values.get(0) + "\n");
+        // int spaces = 30;
+        // sb.append(String.format("%1$"+spaces+"s", values.get(0)) + "\n");
+        // for (int i = 0; i < values.size() / 2; i++) {
+        //     sb.append(values.get(left(i)) + "\t" + values.get(right(i))  + "\n");
+        // }
+        // System.out.println("string as tree: " );
+        // System.out.println(sb);
+
+
+        // TODO DELETE!!!
+        StringBuilder sb = new StringBuilder();
+        int max = 0;
+        for (int i = 0; i <= values.size(); i++) {
+            for (int j = 0; j < Math.pow(2, i) && j + Math.pow(2, i) <= values.size(); j++) {
+
+                if (j > max) {
+                    max = j;
+                }
+            }
+
+        }
+
+        for (int i = 0; i <= values.size(); i++) {
+            for (int j = 0; j < Math.pow(2, i) && j + Math.pow(2, i) <= values.size(); j++) {
+
+                for (int k = 0; (k < max / ((int) Math.pow(2, i))); k++) {
+                    sb.append(" ");
+                }
+                sb.append((values.get(j + (int) Math.pow(2, i) - 1) + " "));
+                
+            }
+            sb.append("\n");
+
+        }
+        // Stringbuffer magic, which i don't really understand
+        // some fail from my side in the loop, but it works  ¯\_(ツ)_/¯
+        sb.setLength(sb.length()-values.size()+3); 
+        System.out.println(sb.toString());
+    }
+
+
     // M.W.
     // G.S: changed from private to protected
     protected boolean isHeap() {

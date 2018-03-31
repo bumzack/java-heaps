@@ -61,6 +61,7 @@ public class PQueueTest {
 
         System.out.println(h);
         System.out.println();
+        h.printAsTree();
         System.out.println(); 
     }
 
@@ -82,6 +83,7 @@ public class PQueueTest {
 
         System.out.println(h);
         System.out.println();
+        h.printAsTree();
         System.out.println(); 
     }
 
