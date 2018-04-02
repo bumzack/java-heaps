@@ -86,8 +86,6 @@ public class TestBinaryHeap {
 
         System.out.println(h);
         System.out.println();
-        h.printAsTree();
-        System.out.println(); 
     }
 
     public static void testMax() {
@@ -104,8 +102,6 @@ public class TestBinaryHeap {
         assert h.max() == max;
 
         System.out.println(h);
-        System.out.println();
-        h.printAsTree();
         System.out.println(); 
     }
 
@@ -133,8 +129,6 @@ public class TestBinaryHeap {
 
         System.out.println(h);
         System.out.println();
-        h.printAsTree();
-        System.out.println(); 
     }
 
     public static<T> void assertArrayLists(ArrayList<T> arr, ArrayList<T> arr_expected) {
@@ -260,10 +254,9 @@ public class TestBinaryHeap {
         assert h1.size() == 9;
         assert h1.max() == 200;
 
-        System.out.println(h1);
         System.out.println();
         System.out.println("merged queues: ");
         System.out.println(); 
-        h1.printAsTree();
+        System.out.println(h1);
     }
 }

@@ -31,6 +31,7 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
     }
 
     public void heapify(int a) {
+        // System.out.println("heapify!!");
         int cnt = values.size() - 1;
         
         for (int i = cnt / 2; i >= 0; i--)
@@ -49,9 +50,9 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         int greatest = i;
 
         if (left <= cnt && (Integer) values.get(left) < ((Integer) values.get(greatest)))
-        greatest = left;
+            greatest = left;
         if (right <= cnt && (Integer) values.get(right) < ((Integer) values.get(greatest)))
-        greatest = right;
+            greatest = right;
         if (greatest != i) {
             Collections.swap(values, i, greatest);
             heapifyHelper(greatest, cnt);

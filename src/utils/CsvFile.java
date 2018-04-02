@@ -10,20 +10,40 @@
 package utils;
 
 import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class CsvFile {
     
     private FileWriter f;
 
-    public CsvFile(String filename) throws java.io.IOException {     
-        f = new FileWriter(filename);
+    public CsvFile(String filename) {  
+        try {
+            f = new FileWriter(filename);
+        } catch (IOException ex) {
+            System.out.println("something went wrong with accessing the file");
+            System.out.println(ex.toString());
+            ex.printStackTrace();
+        }
     }   
 
-    public void writeString(String s)  throws java.io.IOException {
-        f.write(s);
+    public void writeString(String s) {
+        try {
+            f.write(s);
+        } catch (IOException ex) {
+            System.out.println("something went wrong with accessing the file");
+            System.out.println(ex.toString());
+            ex.printStackTrace();
+        }
     }
 
-    public void closeFile()  throws java.io.IOException  {
-        f.close();
+    public void closeFile()  {
+        try {
+            f.close();
+        } catch (IOException ex) {
+            System.out.println("something went wrong with accessing the file");
+            System.out.println(ex.toString());
+            ex.printStackTrace();
+        }
     }
 }

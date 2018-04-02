@@ -4,7 +4,7 @@
   <property name="program.jar" value="heap.jar" />
 
   <target name="compile" description="Compile Java sources">
-    <javac srcdir="src" destdir="bin" includeantruntime="false" debug="true">
+    <javac srcdir="src" destdir="bin" includeantruntime="false" debug="false">
       <include name="**/*.java" />
     </javac>
   </target>
@@ -13,7 +13,7 @@
           depends="compile"
           description="Run Java Application">
     <java classname="${main.class}" fork="true" classpath="bin">
-      <assertions>  <enable />  </assertions>
+      <!-- <jvmarg value="-ea" /> -->
     </java>
   </target>
 
@@ -42,5 +42,4 @@
       <fileset dir="bin" includes="**/*.class" />
     </delete>
   </target>
-
 </project>
