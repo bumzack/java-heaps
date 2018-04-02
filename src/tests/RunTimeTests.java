@@ -20,10 +20,10 @@ import utils.CsvFile;
 
 public class RunTimeTests {
 
-    private int[] cntElements = { 25, 100, 1000, 10000, 100000 };   // 100000
-    Integer max = 100000;
-    int iterations = 20; 
-    int[] dValues = { 4, 8, 12, 16, 20, 24, 28, 32 };
+    private int[] cntElements = { 25, 100, 1000,  };            // 10000, 100000
+    Integer max = 100000;                                       
+    int iterations = 2;                                         // 2
+    int[] dValues = { 4, 8, 16, 32 };
 
     int nLargest = 20;
 
@@ -31,7 +31,7 @@ public class RunTimeTests {
         // nothing to   
     }
 
-    public void testBinaryHeap(CsvFile f)   {       // throws IllegalStateException
+    public void testBinaryHeap(CsvFile f)   {    
         System.out.println("--------------------------------------");
         System.out.println("testBinaryHeap()");
         System.out.println("--------------------------------------");
@@ -48,103 +48,103 @@ public class RunTimeTests {
         Integer x;
         long dur = 0, start, end; 
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test insert()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test insert()");
+        System.out.println("--------------------------------------");
 
-        // Random r = new Random();
+        Random r = new Random();
 
-        // for (int i = 0; i < cntElements.length; i++) {
-        //     BinaryHeap<Integer> h = getDummyBinaryHeap(cntElements[i]);
-        //     dur = 0;
-        //     title[i] = Integer.toString(cntElements[i]);
+        for (int i = 0; i < cntElements.length; i++) {
+            BinaryHeap<Integer> h = getDummyBinaryHeap(cntElements[i]);
+            dur = 0;
+            title[i] = Integer.toString(cntElements[i]);
 
-        //     for (int j = 0; j < iterations; j++) {
-        //         x = r.nextInt(max);
-        //         start = System.nanoTime();
-        //         h.insert(x);
-        //         end = System.nanoTime();
-        //         dur += (end - start);
-        //     }
-        //     durationInsert[i] = dur / iterations;
-        // }
+            for (int j = 0; j < iterations; j++) {
+                x = r.nextInt(max);
+                start = System.nanoTime();
+                h.insert(x);
+                end = System.nanoTime();
+                dur += (end - start);
+            }
+            durationInsert[i] = dur / iterations;
+        }
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test max()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test max()");
+        System.out.println("--------------------------------------");
         
-        // for (int i = 0; i < cntElements.length; i++) {
-        //     BinaryHeap<Integer> h = getDummyBinaryHeap(cntElements[i]);
-        //     dur = 0;
-        //     // title[i] = Integer.toString(cntElements[i]);
-        //     for (int j = 0; j < iterations; j++) {
+        for (int i = 0; i < cntElements.length; i++) {
+            BinaryHeap<Integer> h = getDummyBinaryHeap(cntElements[i]);
+            dur = 0;
+            // title[i] = Integer.toString(cntElements[i]);
+            for (int j = 0; j < iterations; j++) {
 
-        //         start = System.nanoTime();
-        //         x = h.max();
-        //         end = System.nanoTime();
-        //         dur += (end - start);
-        //     }
-        //     durationMax[i] = dur / iterations;
-        // }
+                start = System.nanoTime();
+                x = h.max();
+                end = System.nanoTime();
+                dur += (end - start);
+            }
+            durationMax[i] = dur / iterations;
+        }
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test removeMax()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test removeMax()");
+        System.out.println("--------------------------------------");
         
-        // for (int i = 0; i < cntElements.length; i++) {
-        //     BinaryHeap<Integer> h;
-        //     dur = 0;
-        //     // title[i] = Integer.toString(cntElements[i]);
-        //     for (int j = 0; j < iterations; j++) {
-        //         h = getDummyBinaryHeap(cntElements[i]);
+        for (int i = 0; i < cntElements.length; i++) {
+            BinaryHeap<Integer> h;
+            dur = 0;
+            // title[i] = Integer.toString(cntElements[i]);
+            for (int j = 0; j < iterations; j++) {
+                h = getDummyBinaryHeap(cntElements[i]);
 
-        //         start = System.nanoTime();
-        //         x = h.removeMax();
-        //         end = System.nanoTime();
-        //         dur += (end - start);
-        //     }
-        //     durationRemoveMax[i] = dur / iterations;
-        // }
+                start = System.nanoTime();
+                x = h.removeMax();
+                end = System.nanoTime();
+                dur += (end - start);
+            }
+            durationRemoveMax[i] = dur / iterations;
+        }
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test nLargest()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test nLargest()");
+        System.out.println("--------------------------------------");
         
-        // for (int i = 0; i < cntElements.length; i++) {
-        //     BinaryHeap<Integer> h;
-        //     dur = 0;
-        //     ArrayList<Integer> res; 
-        //     // title[i] = Integer.toString(cntElements[i]);
-        //     for (int j = 0; j < iterations; j++) {
-        //         h = getDummyBinaryHeap(cntElements[i]);
+        for (int i = 0; i < cntElements.length; i++) {
+            BinaryHeap<Integer> h;
+            dur = 0;
+            ArrayList<Integer> res; 
+            // title[i] = Integer.toString(cntElements[i]);
+            for (int j = 0; j < iterations; j++) {
+                h = getDummyBinaryHeap(cntElements[i]);
 
-        //         start = System.nanoTime();
-        //         res = h.nLargest(nLargest);
-        //         end = System.nanoTime();
-        //         dur += (end - start);
-        //     }
-        //     durationNLargest[i] = dur / iterations;
-        // }
+                start = System.nanoTime();
+                res = h.nLargest(nLargest);
+                end = System.nanoTime();
+                dur += (end - start);
+            }
+            durationNLargest[i] = dur / iterations;
+        }
         
-        // System.out.println("--------------------------------------");
-        // System.out.println("test removeNLargest()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test removeNLargest()");
+        System.out.println("--------------------------------------");
         
-        // for (int i = 0; i < cntElements.length; i++) {
-        //     BinaryHeap<Integer> h;
-        //     dur = 0;
-        //     ArrayList<Integer> res; 
-        //     // title[i] = Integer.toString(cntElements[i]);
-        //     for (int j = 0; j < iterations; j++) {
-        //         h = getDummyBinaryHeap(cntElements[i]);
+        for (int i = 0; i < cntElements.length; i++) {
+            BinaryHeap<Integer> h;
+            dur = 0;
+            ArrayList<Integer> res; 
+            // title[i] = Integer.toString(cntElements[i]);
+            for (int j = 0; j < iterations; j++) {
+                h = getDummyBinaryHeap(cntElements[i]);
 
-        //         start = System.nanoTime();
-        //         res = h.removeNLargest(nLargest);
-        //         end = System.nanoTime();
-        //         dur += (end - start);
-        //     }
-        //     durationRemoveNLargest[i] = dur / iterations;
-        // }
+                start = System.nanoTime();
+                res = h.removeNLargest(nLargest);
+                end = System.nanoTime();
+                dur += (end - start);
+            }
+            durationRemoveNLargest[i] = dur / iterations;
+        }
 
         System.out.println("--------------------------------------");
         System.out.println("test heapify()");

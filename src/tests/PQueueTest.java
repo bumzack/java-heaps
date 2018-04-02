@@ -18,14 +18,14 @@ import utils.CsvFile;
 public class PQueueTest {
 
     public static void main(String[] args) {
-        TestBinaryHeap tBH = new TestBinaryHeap();
-        tBH.simpleTests();
-        tBH.testInsert();
-        tBH.testMax();
-        tBH.testRemoveMax();
-        tBH.testNLargest();
-        tBH.testRemoveNLargest();
-        tBH.testMerge();
+        // TestBinaryHeap tBH = new TestBinaryHeap();
+        // tBH.simpleTests();
+        // tBH.testInsert();
+        // tBH.testMax();
+        // tBH.testRemoveMax();
+        // tBH.testNLargest();
+        // tBH.testRemoveNLargest();
+        // tBH.testMerge();
 
         // TestQHeapQueue qH = new TestQHeapQueue();
         // for (int i = 2; i < 10; i++) {
@@ -46,8 +46,8 @@ public class PQueueTest {
         // runtime tests
         RunTimeTests RT = new RunTimeTests();
         CsvFile f = new CsvFile("timings_insert.csv");
-        RT.testBinaryHeap(f);
-        // RT.testQHeap(f);
+        // RT.testBinaryHeap(f);
+        RT.testQHeap(f);
         f.closeFile();        
     }
 }

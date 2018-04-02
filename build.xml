@@ -13,7 +13,7 @@
           depends="compile"
           description="Run Java Application">
     <java classname="${main.class}" fork="true" classpath="bin">
-      <!-- <jvmarg value="-ea" /> -->
+      <jvmarg value="-ea" />
     </java>
   </target>
 

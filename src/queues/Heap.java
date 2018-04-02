@@ -114,7 +114,6 @@ public class Heap<T extends Comparable<T>> {
     }
 
     public boolean isHeap(int i) {
-        System.out.println("isHeap!!");
         while (i < values.size() && !less(values.get(parent(i)), values.get(i))) {
             i++;
         }
