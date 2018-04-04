@@ -15,6 +15,8 @@ import java.util.Collections;
 
 import java.util.List;
 
+import com.sun.javafx.binding.SelectBinding.AsString;
+
 public class QHeapQueue<T extends Comparable<T>>  {
     
     private ArrayList<T> values;
@@ -69,12 +71,17 @@ public class QHeapQueue<T extends Comparable<T>>  {
 
     public ArrayList<T> removeNLargest(int n) {
         ArrayList<T> elems = nLargest(n);
-        
+        assert isHeap();
+
         // TODO: faster?? 
         for (int i = 0; i < n; i++) {
+            System.out.println("deuquq i = "+ i);
             dequeue();
+            assert isHeap();
         }
-        assert isHeap();
+        System.out.println("BEFORE 'removeNLargest' assert isHeao()");
+        // assert isHeap();
+        System.out.println("AFTER 'removeNLargest' assert isHeao()");
         return elems; 
     }
 
@@ -85,6 +92,7 @@ public class QHeapQueue<T extends Comparable<T>>  {
             a = parent(a);
         }
         values.set(a, tmp);
+        assert isHeap();
     }
 
     public boolean isHeap() {
@@ -98,7 +106,6 @@ public class QHeapQueue<T extends Comparable<T>>  {
         return i >= values.size()-d;
     }
 
-    
     public int size() {
         return values.size();
     }
@@ -120,13 +127,27 @@ public class QHeapQueue<T extends Comparable<T>>  {
 
     private T dequeue() {
         if (values.isEmpty())
-            throw new IllegalStateException("queue is empty!!   removeMax()");
+            throw new IllegalStateException("queue is empty!!   dequeue()");
         T ret = (T) values.get(0);
+        System.out.println("\n\ndeuque \n\n");
+        System.out.println("BEFORE move values[0] = " + values.get(0) + "   values[size()-1] = " +values.get(values.size()-1));
+        
+        System.out.println("\n\nBEFORE queue = " + this +"\n\n\n");
+
+        
         values.set(0, values.get(values.size()-1));
+        System.out.println("AFTER move values[0] = " + values.get(0) + "   values[size()-1] = " +values.get(values.size()-1));
         values.remove(values.size()-1);
+        System.out.println("AFTER remove of last element values[0] = " + values.get(0) + "   values[size()-1] = " +values.get(values.size()-1));
+
+
+        System.out.println("\n\nAFTERs swapping and deleting queue = " + this);
+
         if (!values.isEmpty()) {
             downHeap(0);
         }
+        System.out.println("\n\nAFTERs downHeap()  = " + this +"\n\n\n");
+        assert isHeap();
         return ret; 
     }
 
