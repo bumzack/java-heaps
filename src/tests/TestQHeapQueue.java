@@ -16,23 +16,22 @@ import queues.QHeapQueue;
 
 public class TestQHeapQueue {
 
+    private static final int max = 100000;
+
     public TestQHeapQueue() {}
 
     public static QHeapQueue<Integer> getDummyDataInsert(int d) {
         QHeapQueue<Integer> h = new QHeapQueue<Integer>(d);
         h.insert(2);
         h.insert(20);      
-        Integer x = 200;    
-        Integer y =100;      
-        h.insert(x);
+        h.insert(200);
         h.insert(1);
         h.insert(10);
-        h.insert(y);
+        h.insert(100);
         return h;
     }
 
     public static void testInsert(int d) {
-
         System.out.println("--------------------------------------------------"); 
         System.out.println("testing insert() "); 
         System.out.println("--------------------------------------------------"); 
@@ -49,8 +48,6 @@ public class TestQHeapQueue {
 
         System.out.println(h);
         System.out.println();
-        // h.printAsTree();
-        System.out.println(); 
     }
 
     public static void testMax(int d) {
@@ -61,15 +58,13 @@ public class TestQHeapQueue {
         QHeapQueue<Integer> h = getDummyDataInsert(d);
         System.out.println(h);
 
-        int max = 100000;
+        
         h.insert(max);
         assert h.size() == 7;
         assert h.max() == max;
 
         System.out.println(h);
         System.out.println();
-        // h.printAsTree();
-        System.out.println(); 
     }
 
     public static void testRemoveMax(int d) {
@@ -80,7 +75,6 @@ public class TestQHeapQueue {
         QHeapQueue<Integer> h = getDummyDataInsert(d);
         System.out.println("heap contains the following elements: "); 
 
-        int max = 100000;
         h.insert(max);
         assert h.size() == 7;
         assert h.max() == max;
@@ -109,53 +103,37 @@ public class TestQHeapQueue {
         }
     }
 
-    // public static void testNLargest(int d) {
-    //     System.out.println("--------------------------------------------------"); 
-    //     System.out.println("testing testNLargest() "); 
-    //     System.out.println("--------------------------------------------------"); 
+    public static void testNLargest(int d) {
+        System.out.println("--------------------------------------------------"); 
+        System.out.println("testing testNLargest() "); 
+        System.out.println("--------------------------------------------------"); 
 
-    //     QHeapQueue<Integer> h = getDummyDataInsert(d);
-    //     System.out.println("heap contains the following elements: "); 
+        QHeapQueue<Integer> h = getDummyDataInsert(d);
+        System.out.println("heap contains the following elements: "); 
 
-    //     Integer max = 100000;
-    //     h.insert(max);
-    //     assert h.size() == 7;
-    //     assert h.max() == max;
-    //     System.out.println(h);
+        h.insert(max);
+        assert h.size() == 7;
+        assert h.max() == max;
+        System.out.println(h);
 
-    //     // this works :-(
-    //     // the code below does not 
-    //     // ArrayList<Integer> a = new ArrayList<Integer>(3);
-    //     // ArrayList<Integer> b = new ArrayList<Integer>(3);
-    //     // a.add(1);
-    //     // b.add(1);
-    //     // assertArrayLists(a, b);
+        ArrayList<Integer> n3_expected = new ArrayList<Integer>(3);
+        n3_expected.add(max);        
+        n3_expected.add(200);
+        n3_expected.add(100);
 
-    //     ArrayList<Integer> n3_expected = new ArrayList<Integer>(3);
-    //     n3_expected.add(max);        
-    //     Integer x = 200;
-    //     n3_expected.add(x);
-    //     Integer y = 100; 
-    //     n3_expected.add(y);
-
-    //     ArrayList<Integer> n3 = h.nLargest(3);
-    //     System.out.println("n3: " + n3);
-    //     System.out.println("n3_expected: " + n3_expected);
-    //     // assertArrayEquals(n3.size() == n3_expected.size());
+        ArrayList<Integer> n3 = h.nLargest(3);
+        System.out.println("n3: " + n3);
+        System.out.println("n3_expected: " + n3_expected);
         
-    //     // TODO !!!!!!!
-    //     // assertArrayLists(n3, n3_expected);
+        assertArrayLists(n3, n3_expected);
 
+        // elements still in list!
+        assert h.size() == 7;
+        assert h.max() == max;
 
-    //     // elements still in list!
-    //     assert h.size() == 7;
-    //     assert h.max() == max;
-
-    //     System.out.println(h);
-    //     System.out.println();
-    //     // System.out.println("largest 3 elements: " + n3);
-    //     System.out.println(); 
-    // }
+        System.out.println(h);
+        System.out.println();
+    }
 
     public static void testRemoveNLargest(int d) {
         System.out.println("--------------------------------------------------"); 
@@ -165,7 +143,6 @@ public class TestQHeapQueue {
         QHeapQueue<Integer> h = getDummyDataInsert(d);
         System.out.println("heap contains the following elements: "); 
         
-        Integer max = 100000;
         h.insert(max);
         assert h.size() == 7;
         assert h.max() == max;
@@ -173,10 +150,8 @@ public class TestQHeapQueue {
 
         ArrayList<Integer> n4_expected = new ArrayList<Integer>(4);
         n4_expected.add(max);        
-        Integer x = 200;
-        n4_expected.add(x);
-        Integer y = 100; 
-        n4_expected.add(y);
+        n4_expected.add(200);
+        n4_expected.add(100);
         n4_expected.add(20);
 
         ArrayList<Integer> n4 = h.removeNLargest(4);

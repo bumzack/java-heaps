@@ -22,7 +22,6 @@ public class QHeapQueue<T extends Comparable<T>>  {
     private ArrayList<T> values;
     private static int d; 
 
-
     public QHeapQueue(int _d) {
         d = _d; 
         values = new ArrayList<T>();
@@ -68,22 +67,22 @@ public class QHeapQueue<T extends Comparable<T>>  {
         values.set(0, values.get(values.size()-1));   
         values.remove(values.size()-1);
         if (!isEmpty())
-           repairTop(0);
+           upHeap(0);
         return tmp;
     }
 
-    private void repairTop(int topIndex) {
+    private void upHeap(int topIndex) {
         T tmp = values.get(topIndex);
-        int succ = findSuccessor(topIndex * d + 1, topIndex * d + d);
+        int succ = getSucc(topIndex * d + 1, topIndex * d + d);
         while (succ < values.size() && less( tmp, (T) values.get(succ) )) {        
             values.set(topIndex, values.get(succ));    
             topIndex = succ;
-            succ = findSuccessor(succ * d + 1, succ * d + d);
+            succ = getSucc(succ * d + 1, succ * d + d);
         }
         values.set(topIndex, tmp);
     }
     
-    private int findSuccessor(int from, int to) {
+    private int getSucc(int from, int to) {
         int succ = from;
         for (int i = from + 1; i <= to && i < values.size(); i++) {
             if (less( (T) values.get(succ), values.get(i) )) {
@@ -95,18 +94,11 @@ public class QHeapQueue<T extends Comparable<T>>  {
 
     public boolean isHeap() {
         for (int i = 1; i < values.size() ; i++) {
-            // System.out.println(" i = " + i + "    parent(i) = " + parent(i));
-            // System.out.println(" values.get(i) = " +  values.get(i)    + "    values.get(parent(i)  = " + values.get(parent(i)));
-
             if (!less((T) values.get(i),  (T) values.get(parent(i)))) {
-                System.out.println(" values.get(i)   <   values.get(parent(i))    .....     " +   values.get(i) + " < "  + values.get(parent(i)));
-                System.exit(33);
                 return false;
             }
         }
-        // System.out.println(" isHeap() .. TRUE     ");
         return true;
-
     }
 
     public int size() {
@@ -154,12 +146,11 @@ public class QHeapQueue<T extends Comparable<T>>  {
         return values; 
     }
 
+    // algorithm: https://www.cs.cmu.edu/~eugene/teach/algs03b/works/s6.pdf
     public void heapify() {
-        
         for (int i = parent(values.size() - 1); i >= 0; i--) {
             heapifyDown(i);
         }
-
         assert isHeap();   
     }
 

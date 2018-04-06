@@ -31,7 +31,7 @@ public class PQueueTest {
         tBH.testInsert();
         tBH.testMax();
         tBH.testRemoveMax();
-        // tBH.testNLargest();
+        tBH.testNLargest();
         tBH.testRemoveNLargest();
         tBH.testMerge();
 
@@ -46,7 +46,7 @@ public class PQueueTest {
             qH.testInsert(i);
             qH.testMax(i);
             qH.testRemoveMax(i);
-            // qH.testNLargest(i);
+            qH.testNLargest(i);
             qH.testRemoveNLargest(i);
             qH.testMerge(i);
         }

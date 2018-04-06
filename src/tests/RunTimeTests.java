@@ -19,9 +19,9 @@ import utils.CsvFile;
 
 public class RunTimeTests {
 
-    private int[] cntElements = {   10, 100, 1000, 10000  };
-    Integer max = 100000;    
-    int iterations = 10;
+    private static final int[] cntElements = {   10, 100, 1000, 10000  };
+    private static final int  max = 100000;    
+    private static final int  iterations = 10;
     int[] dValues = { 8, 16, 32, 64 };
     
     int nLargest = 8;
@@ -75,7 +75,7 @@ public class RunTimeTests {
         for (int i = 0; i < cntElements.length; i++) {
             BinaryHeap<Integer> h = getDummyBinaryHeap(cntElements[i]);
             dur = 0;
-            // title[i] = Integer.toString(cntElements[i]);
+
             for (int j = 0; j < iterations; j++) {
 
                 start = System.nanoTime();
@@ -93,7 +93,6 @@ public class RunTimeTests {
         for (int i = 0; i < cntElements.length; i++) {
             BinaryHeap<Integer> h;
             dur = 0;
-            // title[i] = Integer.toString(cntElements[i]);
             for (int j = 0; j < iterations; j++) {
                 h = getDummyBinaryHeap(cntElements[i]);
 
@@ -113,7 +112,6 @@ public class RunTimeTests {
             BinaryHeap<Integer> h;
             dur = 0;
             ArrayList<Integer> res; 
-            // title[i] = Integer.toString(cntElements[i]);
             for (int j = 0; j < iterations; j++) {
                 h = getDummyBinaryHeap(cntElements[i]);
 
@@ -133,7 +131,6 @@ public class RunTimeTests {
             BinaryHeap<Integer> h;
             dur = 0;
             ArrayList<Integer> res; 
-            // title[i] = Integer.toString(cntElements[i]);
             for (int j = 0; j < iterations; j++) {
                 h = getDummyBinaryHeap(cntElements[i]);
 
@@ -141,10 +138,7 @@ public class RunTimeTests {
                 res = h.removeNLargest(nLargest);
                 end = System.nanoTime();
 
-                // System.out.println("test remmoveNLargest() BEFORE assert isHeap()");
                 assert h.isHeap();
-                // System.out.println("test remmoveNLargest() AFTER assert isHeap()");
-
                 dur += (end - start);
             }
             durationRemoveNLargest[i] = dur / iterations;
@@ -157,8 +151,6 @@ public class RunTimeTests {
         for (int i = 0; i < cntElements.length; i++) {
             BinaryHeap<Integer> h;
             dur = 0;
-            ArrayList<Integer> res; 
-            // title[i] = Integer.toString(cntElements[i]);
             for (int j = 0; j < iterations; j++) {
                 h = getDummyBinaryHeapUnsorted(cntElements[i]);
                 
@@ -173,7 +165,6 @@ public class RunTimeTests {
         }
 
         // write data into CSV file
-        // System.out.println("title: ");
         StringBuilder sb = new StringBuilder();
         sb.append("type; operation; d; "); 
         for (int i = 0; i < title.length; i++) {
@@ -181,8 +172,6 @@ public class RunTimeTests {
         }
         sb.append("\n");
         f.writeString(sb.toString());
-        // System.out.println(sb.toString());
-        // System.out.println();
 
         StringBuilder sbInsert = new StringBuilder();
         StringBuilder sbMax = new StringBuilder();
@@ -240,27 +229,22 @@ public class RunTimeTests {
         long[][] durationRemoveNLargest = new long[dValues.length][cntElements.length];
         long[][] durationHeapify = new long[dValues.length][cntElements.length];
 
-
-        // String[] title = new String[cntElements.length];
-
         Integer x;
         long dur = 0, start, end; 
 
         Random r = new Random();
 
         QHeapQueue<Integer> h = new QHeapQueue<Integer> (1);
-        ArrayList<Integer> res; 
+        // ArrayList<Integer> res; 
 
         System.out.println("--------------------------------------");
         System.out.println("test insert()");
         System.out.println("--------------------------------------");
 
-        
         for (int k = 0; k < dValues.length; k++) {
             for (int i = 0; i < cntElements.length; i++) {
             
-                h = getDummyQHeap(cntElements[i], dValues[k]);        
-
+                h = getDummyQHeap(cntElements[i], dValues[k]);
                 dur = 0;
 
                 for (int j = 0; j < iterations; j++) {
@@ -282,7 +266,6 @@ public class RunTimeTests {
             for (int i = 0; i < cntElements.length; i++) {
             
                 h = getDummyQHeap(cntElements[i], dValues[k]);        
-
                 dur = 0;
 
                 for (int j = 0; j < iterations; j++) {
@@ -305,7 +288,6 @@ public class RunTimeTests {
                 dur = 0;
 
                 for (int j = 0; j < iterations; j++) {
-
                     h = getDummyQHeap(cntElements[i], dValues[k]);   
                     start = System.nanoTime();
                     x = h.removeMax();
@@ -319,11 +301,11 @@ public class RunTimeTests {
         System.out.println("--------------------------------------");
         System.out.println("test nLargest()");
         System.out.println("--------------------------------------");
-
         
         for (int k = 0; k < dValues.length; k++) {
             for (int i = 0; i < cntElements.length; i++) {
                 dur = 0;
+                ArrayList<Integer> res; 
 
                 for (int j = 0; j < iterations; j++) {
 
@@ -345,26 +327,18 @@ public class RunTimeTests {
         for (int k = 0; k < dValues.length; k++) {
             for (int i = 0; i < cntElements.length; i++) {
                 dur = 0;
+                ArrayList<Integer> res; 
 
                 for (int j = 0; j < iterations; j++) {
 
-                    h = getDummyQHeap(cntElements[i], dValues[k]);   
-
-                    // System.out.println("current heap before removing 20 elements ---------------");
-                    // System.out.println(h);
+                    h = getDummyQHeap(cntElements[i], dValues[k]);
                     
                     start = System.nanoTime();
                     res = h.removeNLargest(nLargest);
                     end = System.nanoTime();
                     
-                    // System.out.println("current heap AFTER removing 20 elements ---------------");
-                    // System.out.println(h);
-                    
-                    if (!h.isHeap()) {
-                        System.out.println("XXXXXXXXXXXXXXXXXXX");
-                        System.exit(99);
-                    }
-                    
+                    assert h.isHeap();
+
                     dur += (end - start);
                 }
                 durationRemoveNLargest[k][i] = dur / iterations;
@@ -395,27 +369,6 @@ public class RunTimeTests {
             }
         }
 
-        
-        
-
-        // StringBuilder sb = new StringBuilder();
-        // System.out.println("timings ");
-        // for (int i = 0; i < durationInsert.length; i++) {
-        //     // System.out.print("d = " + dValues[i] + "    ");
-        //     sb.append(" QHeap; insert();    " + Integer.toString(dValues[i] ) + " ; ");
-        //     for (int j = 0; j < durationInsert[i].length; j++) {
-        //         // System.out.print(durationInsert[i][j] + "  /  ");
-        //         sb.append(Long.toString(durationInsert[i][j]) + " ; ");
-        //     }
-        //     sb.append("\n");
-        //     // System.out.println();   
-        // }
-        // // System.out.println();   
-        // // System.out.println();   
-        // System.out.println(sb.toString());  
-
-        // f.writeString(sb.toString());
-
         StringBuilder sbInsert = new StringBuilder();
         StringBuilder sbMax = new StringBuilder();
         StringBuilder sbRemoveMax = new StringBuilder();
@@ -424,14 +377,7 @@ public class RunTimeTests {
         StringBuilder sbHeapify = new StringBuilder();
 
         System.out.println("timings ");
-        // sbInsert.append(" QHeap; insert() ;  na ;");
-        // sbMax.append(" QHeap; max() ;  na ;");
-        // sbRemoveMax.append(" QHeap; removeMax() ;  na ;");
-        // sbNLargest.append(" QHeap; nLargest() ;  na ;");
-        // sbRemoveNLargest.append(" QHeap; removeNLargest() ;  na ;");
-        // sbHeapify.append(" QHeap; heapify() ;  na ;");
         for (int i = 0; i < durationInsert.length; i++) {
-            // System.out.print("d = " + dValues[i] + "    ");
             sbInsert.append(" QHeap; insert();    " + Integer.toString(dValues[i] ) + " ; ");
             sbMax.append(" QHeap; max();    " + Integer.toString(dValues[i] ) + " ; ");
             sbRemoveMax.append(" QHeap; removeMax();    " + Integer.toString(dValues[i] ) + " ; ");
@@ -439,7 +385,6 @@ public class RunTimeTests {
             sbRemoveNLargest.append(" QHeap; removeNLargest();    " + Integer.toString(dValues[i] ) + " ; ");
             sbHeapify.append(" QHeap; heapify();    " + Integer.toString(dValues[i] ) + " ; ");
             for (int j = 0; j < durationInsert[i].length; j++) {
-                // System.out.print(durationInsert[i][j] + "  /  ");
                 sbInsert.append(Long.toString(durationInsert[i][j]) + " ; ");
                 sbMax.append(Long.toString(durationMax[i][j]) + " ; ");
                 sbRemoveMax.append(Long.toString(durationRemoveMax[i][j]) + " ; ");

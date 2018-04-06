@@ -16,6 +16,8 @@ import queues.BinaryHeap;
 
 public class TestBinaryHeap {
 
+    private static final int max = 100000;
+
     public TestBinaryHeap() {}
 
     public static BinaryHeap<Integer> getDummyDataEnqueue() {
@@ -33,12 +35,10 @@ public class TestBinaryHeap {
         BinaryHeap<Integer> h = new BinaryHeap<Integer>();
         h.insert(2);
         h.insert(20);      
-        Integer x = 200;    
-        Integer y =100;      
-        h.insert(x);
+        h.insert(200);
         h.insert(1);
         h.insert(10);
-        h.insert(y);
+        h.insert(100);
         return h;
     }
 
@@ -65,7 +65,6 @@ public class TestBinaryHeap {
         System.out.println();
         System.out.println(h);
         System.out.println();
-        
     }
 
     public static void testInsert() {
@@ -96,7 +95,6 @@ public class TestBinaryHeap {
         BinaryHeap<Integer> h = getDummyDataInsert();
         System.out.println(h);
 
-        int max = 100000;
         h.insert(max);
         assert h.size() == 7;
         assert h.max() == max;
@@ -114,7 +112,6 @@ public class TestBinaryHeap {
         System.out.println("heap contains the following elements: "); 
         System.out.println(h);
 
-        int max = 100000;
         h.insert(max);
         assert h.size() == 7;
         assert h.max() == max;
@@ -148,35 +145,21 @@ public class TestBinaryHeap {
         BinaryHeap<Integer> h = getDummyDataInsert();
         System.out.println("heap contains the following elements: "); 
 
-        Integer max = 100000;
         h.insert(max);
         assert h.size() == 7;
         assert h.max() == max;
         System.out.println(h);
 
-        // this works :-(
-        // the code below does not 
-        // ArrayList<Integer> a = new ArrayList<Integer>(3);
-        // ArrayList<Integer> b = new ArrayList<Integer>(3);
-        // a.add(1);
-        // b.add(1);
-        // assertArrayLists(a, b);
-
         ArrayList<Integer> n3_expected = new ArrayList<Integer>(3);
         n3_expected.add(max);        
-        Integer x = 200;
-        n3_expected.add(x);
-        Integer y = 100; 
-        n3_expected.add(y);
+        n3_expected.add(200);
+        n3_expected.add(100);
 
         ArrayList<Integer> n3 = h.nLargest(3);
         System.out.println("n3: " + n3);
         System.out.println("n3_expected: " + n3_expected);
-        // assertArrayEquals(n3.size() == n3_expected.size());
         
-        // TODO !!!!!!!
-        // assertArrayLists(n3, n3_expected);
-
+        assertArrayLists(n3, n3_expected);
 
         // elements still in list!
         assert h.size() == 7;
@@ -184,8 +167,6 @@ public class TestBinaryHeap {
 
         System.out.println(h);
         System.out.println();
-        // System.out.println("largest 3 elements: " + n3);
-        System.out.println(); 
     }
 
     public static void testRemoveNLargest() {
@@ -196,7 +177,6 @@ public class TestBinaryHeap {
         BinaryHeap<Integer> h = getDummyDataInsert();
         System.out.println("heap contains the following elements: "); 
         
-        Integer max = 100000;
         h.insert(max);
         assert h.size() == 7;
         assert h.max() == max;
@@ -204,17 +184,15 @@ public class TestBinaryHeap {
 
         ArrayList<Integer> n4_expected = new ArrayList<Integer>(4);
         n4_expected.add(max);        
-        Integer x = 200;
-        n4_expected.add(x);
-        Integer y = 100; 
-        n4_expected.add(y);
+        n4_expected.add(200);
+        n4_expected.add(100);
         n4_expected.add(20);
 
         ArrayList<Integer> n4 = h.removeNLargest(4);
         System.out.println("n4: " + n4);
         System.out.println("n4_expected: " + n4_expected);
-        // TODO !!!!!!!
-        // assertArrayLists(n4, n4_expected);
+        
+        assertArrayLists(n4, n4_expected);
 
         // elements have been removed
         assert h.size() == 3;
@@ -222,8 +200,6 @@ public class TestBinaryHeap {
 
         System.out.println(h);
         System.out.println();
-        // System.out.println("largest 3 elements: " + n3);
-        System.out.println(); 
     }
 
     public static void testMerge() {
@@ -239,13 +215,6 @@ public class TestBinaryHeap {
         h2.enqueue(6);
 
         System.out.println("heap h2.size(): " + h2.size() ); 
-        
-        // h2.enqueue(2);
-        // h2.enqueue(20);            
-        // h2.enqueue(200);
-        // h2.enqueue(1);
-        // h2.enqueue(10);
-        // h2.enqueue(100);
         System.out.println("heap h1 contains the following elements: " + h1 ); 
         System.out.println("heap h2 contains the following elements: " + h2 ); 
         

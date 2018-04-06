@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------- */
 /* Heap.java                                                     */
 /* ------------------------------------------------------------- */
-/* author: Martin Winkler                          )             */
+/* author: Martin Winkler                                        */
 /* date: 2018-03-31                                              */
 /* ------------------------------------------------------------- */
 /* heap implementation                                           */
@@ -17,9 +17,7 @@ public class Heap<T extends Comparable<T>> {
 
     // M.W.
     public Heap() {
-        // System.out.println("Heap constructor BEGIN");
         values = new ArrayList<T>();
-        // System.out.println("Heap constructor END");
     }
 
     // M.W.

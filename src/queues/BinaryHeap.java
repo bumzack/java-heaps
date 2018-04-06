@@ -36,20 +36,19 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
     }
 
     public void heapify(int a) {
-        // System.out.println("heapify!!");
         int cnt = values.size() - 1;
         
         for (int i = cnt / 2; i >= 0; i--)
-            heapifyHelper(i, cnt);
+            helper(i, cnt);
 
         for (int i = cnt; i > 0; i--) {
             Collections.swap(values, 0, i);
             cnt--;
-            heapifyHelper(0, cnt);
+            helper(0, cnt);
         }
     }
 
-    private void heapifyHelper(int i, int cnt) {
+    private void helper(int i, int cnt) {
         int left = left(i);
         int right = right(i);
         int greatest = i;
@@ -60,7 +59,7 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
             greatest = right;
         if (greatest != i) {
             Collections.swap(values, i, greatest);
-            heapifyHelper(greatest, cnt);
+            helper(greatest, cnt);
         }
     }
 
@@ -85,15 +84,8 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
 
     public int size() {
         return values.size();
-    }
-
-     // https://stackoverflow.com/questions/529085/how-to-create-a-generic-array-in-java
-     // this does not work at runtime: 
-    //   T[] elems = (T[]) new Comparable[n];
-    //      [java] Exception in thread "main" java.lang.ClassCastException: [Ljava.lang.Comparable; cannot be cast to [Ljava.lang.Integer;
-    //      [java] 	at tests.PQueueTest.testNLargest(PQueueTest.java:162)
-    //      [java] 	at tests.PQueueTest.main(PQueueTest.java:179)
-
+    } 
+    
     public ArrayList<T> nLargest(int n) {
         if (values.size() < n)
             throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
