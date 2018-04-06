@@ -27,28 +27,28 @@ public class PQueueTest {
         // tBH.testRemoveNLargest();
         // tBH.testMerge();
 
-        TestQHeapQueue qH = new TestQHeapQueue();
-        for (int i = 2; i < 10; i++) {
-            System.out.println("--------------------------------------------------"); 
-            System.out.println("--------------------------------------------------"); 
-            System.out.println("testing QHeapQueue()  with d = " + i); 
-            System.out.println("--------------------------------------------------"); 
-            System.out.println("--------------------------------------------------"); 
+        // TestQHeapQueue qH = new TestQHeapQueue();
+        // for (int i = 2; i < 10; i++) {
+        //     System.out.println("--------------------------------------------------"); 
+        //     System.out.println("--------------------------------------------------"); 
+        //     System.out.println("testing QHeapQueue()  with d = " + i); 
+        //     System.out.println("--------------------------------------------------"); 
+        //     System.out.println("--------------------------------------------------"); 
 
-            qH.testInsert(i);
-            qH.testMax(i);
-            qH.testRemoveMax(i);
-            // qH.testNLargest(i);
-            // qH.testRemoveNLargest(i);
-            qH.testMerge(i);
-        }
+        //     qH.testInsert(i);
+        //     qH.testMax(i);
+        //     qH.testRemoveMax(i);
+        //     // qH.testNLargest(i);
+        //     // qH.testRemoveNLargest(i);
+        //     qH.testMerge(i);
+        // }
 
-        // // runtime tests
-        // RunTimeTests RT = new RunTimeTests();
-        // CsvFile f = new CsvFile("timings_insert.csv");
-        // // RT.testBinaryHeap(f);
-        // RT.testQHeap(f);
-        // f.closeFile();        
+        // runtime tests
+        RunTimeTests RT = new RunTimeTests();
+        CsvFile f = new CsvFile("timings_insert.csv");
+        // RT.testBinaryHeap(f);
+        RT.testQHeap(f);
+        f.closeFile();        
 
 
         // QHeapQueue<Integer> h1 = new QHeapQueue<Integer>(4);

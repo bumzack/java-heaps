@@ -96,10 +96,13 @@ public class QHeapQueue<T extends Comparable<T>>  {
 
             if (!less((T) values.get(i),  (T) values.get(parent(i)))) {
                 System.out.println(" values.get(i)   <   values.get(parent(i))    .....     " +   values.get(i) + " < "  + values.get(parent(i)));
+                System.exit(33);
                 return false;
             }
         }
+        // System.out.println(" isHeap() .. TRUE     ");
         return true;
+
     }
 
     public int size() {
@@ -146,21 +149,21 @@ public class QHeapQueue<T extends Comparable<T>>  {
     }
 
     public void heapify() {
-        System.out.println("-------------------------------");
-        System.out.println("heapfiy()    BEGIN");
-        System.out.println("-------------------------------");
+        // System.out.println("-------------------------------");
+        // System.out.println("heapfiy()    BEGIN");
+        // System.out.println("-------------------------------");
 
-        System.out.println("heap BEFORE: " + this);
+        // System.out.println("heap BEFORE: " + this);
 
 
         for (int i = parent(values.size() - 1); i >= 0; i--) {
-            System.out.println("heapfiy()");
+            // System.out.println("heapfiy()");
             heapifyDown(i);
         }
-        System.out.println("heap AFTER: " + this);
-        System.out.println("-------------------------------");
-        System.out.println("heapfiy()    END");
-        System.out.println("-------------------------------");    
+        // System.out.println("heap AFTER: " + this);
+        // System.out.println("-------------------------------");
+        // System.out.println("heapfiy()    END");
+        // System.out.println("-------------------------------");    
     }
 
     public void heapifyDown(int i) {
@@ -172,14 +175,14 @@ public class QHeapQueue<T extends Comparable<T>>  {
         //     if largest 6= i
         //     then exchange A[i] ↔ A[largest]
         //     Heapify(A, largest)
-        System.out.println("i  = " + i  );
+        // System.out.println("i  = " + i  );
         int largest = i; 
         for (int k = 1; k <= d; k++) {
             int l = kthChild(i, k);
-            System.out.println("i  = " + i  + "   l = " + l + "  largest  = " + largest );
-            if (l < values.size()) {
-                System.out.println("values.get(l) = " + values.get(l)  + "   = " + values.get(largest) );
-            }
+            // System.out.println("i  = " + i  + "   l = " + l + "  largest  = " + largest );
+            // if (l < values.size()) {
+            //     System.out.println("values.get(l) = " + values.get(l)  + "   = " + values.get(largest) );
+            // }
             
             if (l < values.size() && less( (T) values.get(largest), (T) values.get(l))) {
                 largest = l;
@@ -191,41 +194,6 @@ public class QHeapQueue<T extends Comparable<T>>  {
         }
     }
 
-    // private void heapifyDown(int ind) {
-    //     System.out.println("-------------------------------");
-    //     System.out.println("heapifyDown(" + ind + ")    BEGIN");
-    //     System.out.println("-------------------------------");
-    //     // int child;
-    //     // int tmp = heap[ ind ];
-    //     // while (kthChild(ind, 1) < heapSize)
-    //     // {
-    //     //     child = minChild(ind);
-    //     //     if (heap[child] < tmp)
-    //     //         heap[ind] = heap[child];
-    //     //     else
-    //     //         break;
-    //     //     ind = child;
-    //     // }
-    //     // heap[ind] = tmp;
-    //     int child;
-    //     T tmp = values.get(ind);
-    //     while (kthChild(ind, 1) < values.size()) {
-    //         child = minChild(ind);
-    //         System.out.println("child = " + child  + "   ind = " + ind + "  values.get(child)  = " + values.get(child) + "   tmp " + tmp);
-    //         if (less (tmp, values.get(child) )) {
-    //             System.out.println("tmp < values.get(child)");
-    //             values.set(ind, values.get(child)); // heap[ind] = heap[child];
-    //         }
-    //         else
-    //             break;
-    //         ind = child;
-    //     }
-    //     // heap[ind] = tmp;
-    //     values.set(ind, tmp);
-    //     System.out.println("-------------------------------");
-    //     System.out.println("heapifyDown(" + ind + ")    END");
-    //     System.out.println("-------------------------------");
-    // }
 
     private int minChild(int ind) {
         int bestChild = kthChild(ind, 1);
@@ -239,7 +207,4 @@ public class QHeapQueue<T extends Comparable<T>>  {
         }    
         return bestChild;
     }
-
-    
-    
 }

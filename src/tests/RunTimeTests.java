@@ -19,10 +19,10 @@ import utils.CsvFile;
 
 public class RunTimeTests {
 
-    private int[] cntElements = { 30 };            //25, 100,   1000,  10000, 100000
+    private int[] cntElements = {  20, 10000, 100000  };            //25, 100,   1000,  10000, 100000
     Integer max = 100000;                                       
     int iterations = 2;                                         // 2
-    int[] dValues = { 4 };
+    int[] dValues = { 8, 16, 32 };
 
     int nLargest = 8;
 
@@ -372,28 +372,28 @@ public class RunTimeTests {
         // }
         // System.out.println("AFTER  test removeNLargest()");
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test heapify()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test heapify()");
+        System.out.println("--------------------------------------");
 
-        // for (int k = 0; k < dValues.length; k++) {
-        //     for (int i = 0; i < cntElements.length; i++) {
-        //         dur = 0;
+        for (int k = 0; k < dValues.length; k++) {
+            for (int i = 0; i < cntElements.length; i++) {
+                dur = 0;
 
-        //         for (int j = 0; j < iterations; j++) {
+                for (int j = 0; j < iterations; j++) {
 
-        //             h = getDummyQHeapUnordered(cntElements[i], dValues[k]);   
+                    h = getDummyQHeapUnordered(cntElements[i], dValues[k]);   
                     
-        //             start = System.nanoTime();
-        //             res = h.removeNLargest(nLargest);
-        //             end = System.nanoTime();
+                    start = System.nanoTime();
+                    h.heapify();
+                    end = System.nanoTime();
 
-        //             assert h.isHeap();
-        //             dur += (end - start);
-        //         }
-        //         durationRemoveNLargest[k][i] = dur / iterations;
-        //     }
-        // }
+                    assert h.isHeap();
+                    dur += (end - start);
+                }
+                durationRemoveNLargest[k][i] = dur / iterations;
+            }
+        }
 
         
         
