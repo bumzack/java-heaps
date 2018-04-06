@@ -18,18 +18,6 @@ public class TestQHeapQueue {
 
     public TestQHeapQueue() {}
 
-    // private boolean assertArrayLists(ArrayList<Integer> a, ArrayList<Integer> b) {
-    //     if (a.size() == b.size()) {
-    //         for (int i = 0; i < a.size(); i++) {
-    //             if (!a.get(i).equals(b.get(i)))
-    //                 return false; 
-    //         }
-    //     } else {
-    //         return false; 
-    //     }
-    //     return true; 
-    // }
-
     public static QHeapQueue<Integer> getDummyDataInsert(int d) {
         QHeapQueue<Integer> h = new QHeapQueue<Integer>(d);
         h.insert(2);
@@ -98,12 +86,6 @@ public class TestQHeapQueue {
         assert h.max() == max;
 
         System.out.println(h);
-        // Integer m = h.removeMax();
-        // System.out.println("m =  " + m); 
-        // while (!h.isEmpty()) {
-        //     System.out.println("max =  " + h.removeMax()); 
-        //     System.out.println("h.isEmpty() =  " + h.isEmpty()); 
-        // }
 
         assert h.removeMax() == max;
         assert h.removeMax() == 200;
@@ -117,15 +99,12 @@ public class TestQHeapQueue {
 
         System.out.println(h);
         System.out.println();
-        // h.printAsTree();
         System.out.println(); 
     }
 
     public static<T> void assertArrayLists(ArrayList<T> arr, ArrayList<T> arr_expected) {
         assert arr.size() == arr_expected.size();
         for (int i = 0; i < arr.size(); i++) {
-            // System.out.println("arr.get(i)           = " + arr.get(i));
-            // System.out.println("arr_expected.get(i)  = " + arr_expected.get(i));
             assert arr.get(i).equals(arr_expected.get(i));
         }
     }
@@ -203,29 +182,13 @@ public class TestQHeapQueue {
         ArrayList<Integer> n4 = h.removeNLargest(4);
         System.out.println("n4: " + n4);
         System.out.println("n4_expected: " + n4_expected);
-        // TODO !!!!!!!
         assertArrayLists(n4, n4_expected);
 
         // elements have been removed
         assert h.size() == 3;
         assert h.max() == 10;
 
-        // for (int i = 0; i < n4.size(); i++) {
-        //     System.out.println("n4.get(i) = " +  n4.get(i) +   "    n4_expected.get(i) =  " + n4_expected.get(i));
-        //     if (n4.get(i)  instanceof Integer) {
-        //         System.out.println("OK");
-        //     }
-        //     if (n4_expected.get(i)  instanceof Integer) {
-        //         System.out.println("OK");
-        //     }
-        //     // assert  ((Integer) n4.get(i)) == ((Integer) n4_expected.get(i));
-        //     assert   n4.get(i).equals(n4_expected.get(i));
-        // }
-        // assert (n4.removeMax)
-
-        System.out.println(h);
         System.out.println();
-        // System.out.println("largest 3 elements: " + n3);
         System.out.println(); 
     }
 
@@ -243,12 +206,6 @@ public class TestQHeapQueue {
 
         System.out.println("heap h2.size(): " + h2.size() ); 
         
-        // h2.insert(2);
-        // h2.insert(20);            
-        // h2.insert(200);
-        // h2.insert(1);
-        // h2.insert(10);
-        // h2.insert(100);
         System.out.println("heap h1 contains the following elements: " + h1 ); 
         System.out.println("heap h2 contains the following elements: " + h2 ); 
         
@@ -258,7 +215,7 @@ public class TestQHeapQueue {
         assert h1.max() == 200;
 
         System.out.println();
-        System.out.println("merged queues: ");
+        System.out.println("merged queues contains the following elements: ");
         System.out.println(h1);
         System.out.println(); 
     }

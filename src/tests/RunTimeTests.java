@@ -19,10 +19,10 @@ import utils.CsvFile;
 
 public class RunTimeTests {
 
-    private int[] cntElements = {   100  };            //25, 100,   1000,  10000, 100000
+    private int[] cntElements = {   10, 100, 1000  };            //25, 100,   1000,  10000, 100000
     Integer max = 100000;                                       
     int iterations = 2;                                         // 2
-    int[] dValues = { 8,  };
+    int[] dValues = { 8, 16, 32 };
 
     int nLargest = 8;
 
@@ -141,36 +141,36 @@ public class RunTimeTests {
                 res = h.removeNLargest(nLargest);
                 end = System.nanoTime();
 
-                System.out.println("test remmoveNLargest() BEFORE assert isHeap()");
+                // System.out.println("test remmoveNLargest() BEFORE assert isHeap()");
                 assert h.isHeap();
-                System.out.println("test remmoveNLargest() AFTER assert isHeap()");
+                // System.out.println("test remmoveNLargest() AFTER assert isHeap()");
 
                 dur += (end - start);
             }
             durationRemoveNLargest[i] = dur / iterations;
         }
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test heapify()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test heapify()");
+        System.out.println("--------------------------------------");
         
-        // for (int i = 0; i < cntElements.length; i++) {
-        //     BinaryHeap<Integer> h;
-        //     dur = 0;
-        //     ArrayList<Integer> res; 
-        //     // title[i] = Integer.toString(cntElements[i]);
-        //     for (int j = 0; j < iterations; j++) {
-        //         h = getDummyBinaryHeapUnsorted(cntElements[i]);
+        for (int i = 0; i < cntElements.length; i++) {
+            BinaryHeap<Integer> h;
+            dur = 0;
+            ArrayList<Integer> res; 
+            // title[i] = Integer.toString(cntElements[i]);
+            for (int j = 0; j < iterations; j++) {
+                h = getDummyBinaryHeapUnsorted(cntElements[i]);
                 
-        //         start = System.nanoTime();
-        //         h.heapify(0);
-        //         end = System.nanoTime();
+                start = System.nanoTime();
+                h.heapify(0);
+                end = System.nanoTime();
 
-        //         assert h.isHeap();
-        //         dur += (end - start);
-        //     }
-        //     durationHeapify[i] = dur / iterations;
-        // }
+                assert h.isHeap();
+                dur += (end - start);
+            }
+            durationHeapify[i] = dur / iterations;
+        }
 
         // write data into CSV file
         // System.out.println("title: ");
@@ -312,7 +312,7 @@ public class RunTimeTests {
                     end = System.nanoTime();
                     dur += (end - start);
                 }
-                durationMax[k][i] = dur / iterations;
+                durationRemoveMax[k][i] = dur / iterations;
             }
         }
         
@@ -338,39 +338,39 @@ public class RunTimeTests {
         //     }
         // }
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test removeNLargest()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test removeNLargest()");
+        System.out.println("--------------------------------------");
 
-        // for (int k = 0; k < dValues.length; k++) {
-        //     for (int i = 0; i < cntElements.length; i++) {
-        //         dur = 0;
+        for (int k = 0; k < dValues.length; k++) {
+            for (int i = 0; i < cntElements.length; i++) {
+                dur = 0;
 
-        //         for (int j = 0; j < iterations; j++) {
+                for (int j = 0; j < iterations; j++) {
 
-        //             h = getDummyQHeap(cntElements[i], dValues[k]);   
+                    h = getDummyQHeap(cntElements[i], dValues[k]);   
 
-        //             System.out.println("current heap before removing 20 elements ---------------");
-        //             System.out.println(h);
+                    // System.out.println("current heap before removing 20 elements ---------------");
+                    // System.out.println(h);
                     
-        //             start = System.nanoTime();
-        //             res = h.removeNLargest(nLargest);
-        //             end = System.nanoTime();
+                    start = System.nanoTime();
+                    res = h.removeNLargest(nLargest);
+                    end = System.nanoTime();
                     
-        //             System.out.println("current heap AFTER removing 20 elements ---------------");
-        //             System.out.println(h);
+                    // System.out.println("current heap AFTER removing 20 elements ---------------");
+                    // System.out.println(h);
                     
-        //             if (!h.isHeap()) {
-        //                 System.out.println("XXXXXXXXXXXXXXXXXXX");
-        //                 System.exit(99);
-        //             }
+                    if (!h.isHeap()) {
+                        System.out.println("XXXXXXXXXXXXXXXXXXX");
+                        System.exit(99);
+                    }
                     
-        //             dur += (end - start);
-        //         }
-        //         durationRemoveNLargest[k][i] = dur / iterations;
-        //     }
-        // }
-        // System.out.println("AFTER  test removeNLargest()");
+                    dur += (end - start);
+                }
+                durationRemoveNLargest[k][i] = dur / iterations;
+            }
+        }
+        System.out.println("AFTER  test removeNLargest()");
 
         System.out.println("--------------------------------------");
         System.out.println("test heapify()");
@@ -391,7 +391,7 @@ public class RunTimeTests {
                     assert h.isHeap();
                     dur += (end - start);
                 }
-                durationRemoveNLargest[k][i] = dur / iterations;
+                durationHeapify[k][i] = dur / iterations;
             }
         }
 
