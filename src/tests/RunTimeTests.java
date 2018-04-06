@@ -19,11 +19,11 @@ import utils.CsvFile;
 
 public class RunTimeTests {
 
-    private int[] cntElements = {   10, 100, 1000  };            //25, 100,   1000,  10000, 100000
-    Integer max = 100000;                                       
-    int iterations = 2;                                         // 2
-    int[] dValues = { 8, 16, 32 };
-
+    private int[] cntElements = {   10, 100, 1000, 10000  };
+    Integer max = 100000;    
+    int iterations = 10;
+    int[] dValues = { 8, 16, 32, 64 };
+    
     int nLargest = 8;
 
     public RunTimeTests() {
@@ -105,25 +105,25 @@ public class RunTimeTests {
             durationRemoveMax[i] = dur / iterations;
         }
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test nLargest()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test nLargest()");
+        System.out.println("--------------------------------------");
         
-        // for (int i = 0; i < cntElements.length; i++) {
-        //     BinaryHeap<Integer> h;
-        //     dur = 0;
-        //     ArrayList<Integer> res; 
-        //     // title[i] = Integer.toString(cntElements[i]);
-        //     for (int j = 0; j < iterations; j++) {
-        //         h = getDummyBinaryHeap(cntElements[i]);
+        for (int i = 0; i < cntElements.length; i++) {
+            BinaryHeap<Integer> h;
+            dur = 0;
+            ArrayList<Integer> res; 
+            // title[i] = Integer.toString(cntElements[i]);
+            for (int j = 0; j < iterations; j++) {
+                h = getDummyBinaryHeap(cntElements[i]);
 
-        //         start = System.nanoTime();
-        //         res = h.nLargest(nLargest);
-        //         end = System.nanoTime();
-        //         dur += (end - start);
-        //     }
-        //     durationNLargest[i] = dur / iterations;
-        // }
+                start = System.nanoTime();
+                res = h.nLargest(nLargest);
+                end = System.nanoTime();
+                dur += (end - start);
+            }
+            durationNLargest[i] = dur / iterations;
+        }
         
         System.out.println("--------------------------------------");
         System.out.println("test removeNLargest()");
@@ -316,27 +316,27 @@ public class RunTimeTests {
             }
         }
         
-        // System.out.println("--------------------------------------");
-        // System.out.println("test nLargest()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test nLargest()");
+        System.out.println("--------------------------------------");
 
-        // 
-        // for (int k = 0; k < dValues.length; k++) {
-        //     for (int i = 0; i < cntElements.length; i++) {
-        //         dur = 0;
+        
+        for (int k = 0; k < dValues.length; k++) {
+            for (int i = 0; i < cntElements.length; i++) {
+                dur = 0;
 
-        //         for (int j = 0; j < iterations; j++) {
+                for (int j = 0; j < iterations; j++) {
 
-        //             h = getDummyQHeap(cntElements[i], dValues[k]);   
+                    h = getDummyQHeap(cntElements[i], dValues[k]);   
                     
-        //             start = System.nanoTime();
-        //             res = h.nLargest(nLargest);
-        //             end = System.nanoTime();
-        //             dur += (end - start);
-        //         }
-        //         durationNLargest[k][i] = dur / iterations;
-        //     }
-        // }
+                    start = System.nanoTime();
+                    res = h.nLargest(nLargest);
+                    end = System.nanoTime();
+                    dur += (end - start);
+                }
+                durationNLargest[k][i] = dur / iterations;
+            }
+        }
 
         System.out.println("--------------------------------------");
         System.out.println("test removeNLargest()");

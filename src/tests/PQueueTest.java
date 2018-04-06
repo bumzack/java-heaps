@@ -60,7 +60,7 @@ public class PQueueTest {
         
         // runtime tests
         RunTimeTests RT = new RunTimeTests();
-        CsvFile f = new CsvFile("timings_insert.csv");
+        CsvFile f = new CsvFile("timings.csv");
         
         RT.testBinaryHeap(f);
         RT.testQHeap(f);

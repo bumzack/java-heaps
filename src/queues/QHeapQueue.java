@@ -28,6 +28,10 @@ public class QHeapQueue<T extends Comparable<T>>  {
         values = new ArrayList<T>();
     }
 
+    public QHeapQueue(QHeapQueue<T> h) {
+        values = h.getValues();
+    }
+
     public void insertUnordered(T elem) {
         values.add(elem);
     }
@@ -139,13 +143,10 @@ public class QHeapQueue<T extends Comparable<T>>  {
 
     public void merge(QHeapQueue<T> h) {
         assert isHeap();
-        // int cnt = queue.size();
-        // for (int i = 0; i < cnt; i++) {
-        //     T val = (T) queue.removeMax();
-        //     insertUnordered(val);
-        // }
+        
         values.addAll(h.getValues());
         heapify();
+        
         assert isHeap();
     }
 
@@ -154,41 +155,18 @@ public class QHeapQueue<T extends Comparable<T>>  {
     }
 
     public void heapify() {
-        // System.out.println("-------------------------------");
-        // System.out.println("heapfiy()    BEGIN");
-        // System.out.println("-------------------------------");
-
-        // System.out.println("heap BEFORE: " + this);
-
-
+        
         for (int i = parent(values.size() - 1); i >= 0; i--) {
-            // System.out.println("heapfiy()");
             heapifyDown(i);
         }
-        // System.out.println("heap AFTER: " + this);
-        // System.out.println("-------------------------------");
-        // System.out.println("heapfiy()    END");
-        // System.out.println("-------------------------------");    
+
+        assert isHeap();   
     }
 
     public void heapifyDown(int i) {
-        // Heapify(A, i, n, d)
-        //     largest ← i
-        //     for l ←Child(i, 1) to Child(i, d) ✄ loop through all children of i
-        //     do if l ≤ n and A[l] > A[largest]
-        //     then largest ← l
-        //     if largest 6= i
-        //     then exchange A[i] ↔ A[largest]
-        //     Heapify(A, largest)
-        // System.out.println("i  = " + i  );
         int largest = i; 
         for (int k = 1; k <= d; k++) {
             int l = kthChild(i, k);
-            // System.out.println("i  = " + i  + "   l = " + l + "  largest  = " + largest );
-            // if (l < values.size()) {
-            //     System.out.println("values.get(l) = " + values.get(l)  + "   = " + values.get(largest) );
-            // }
-            
             if (l < values.size() && less( (T) values.get(largest), (T) values.get(l))) {
                 largest = l;
             }
@@ -199,31 +177,18 @@ public class QHeapQueue<T extends Comparable<T>>  {
         }
     }
 
+    public ArrayList<T> nLargest(int n) {        
+        if (values.size() < n)
+            throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
 
-    private int minChild(int ind) {
-        int bestChild = kthChild(ind, 1);
-        int k = 2;
-        int pos = kthChild(ind, k);
-        while ((k <= d) && (pos < values.size())) 
-        {
-            if (less ((T) values.get(bestChild), (T)values.get(pos))) 
-                bestChild = pos;
-            pos = kthChild(ind, k++);
-        }    
-        return bestChild;
+        QHeapQueue<T> tmp = new QHeapQueue<T>(this);
+
+        ArrayList<T> elems = new ArrayList<T>(n);
+        for (int i = 0; i < n; i++) {
+            elems.add(tmp.removeMax());
+        }
+        return elems; 
     }
-
-
-    // public ArrayList<T> nLargest(int n) {        
-    //     if (values.size() < n)
-    //         throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
-
-    //     ArrayList<T> elems = new ArrayList<T>(n);
-    //     for (int i = 0; i < n; i++) {
-    //         elems.add(tmp.removeMax());
-    //     }
-    //     return elems; 
-    // }
 
     public ArrayList<T> removeNLargest(int n) {
         assert isHeap();
