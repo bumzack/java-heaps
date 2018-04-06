@@ -39,8 +39,15 @@ public class QHeapQueue<T extends Comparable<T>>  {
     
     public void insert(T elem) {
         assert isHeap();
-        insertUnordered(elem);
-        heapify(values.size()-1);
+        values.add(elem);
+        int idx = values.size() - 1;
+        int parentIndex = parent(idx);
+        while (idx != 0 &&  less((T) values.get(parentIndex), elem )) {
+            values.set(idx, values.get(parentIndex));
+            idx = parentIndex; 
+            parentIndex = parent(idx);
+        }
+        values.set(idx, elem);
         assert isHeap();
     }
 
@@ -53,129 +60,54 @@ public class QHeapQueue<T extends Comparable<T>>  {
     public T removeMax() {
         if (values.isEmpty())
             throw new IllegalStateException("queue is empty!!   removeMax()");
-        return (T) dequeue();
-        // return null;
+        T tmp = (T) values.get(0);
+        values.set(0, values.get(values.size()-1));   
+        values.remove(values.size()-1);
+        if (!isEmpty())
+           repairTop(0);
+        return tmp;
     }
 
-    public ArrayList<T> nLargest(int n) {
-        
-        if (values.size() < n)
-            throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
-
-        ArrayList<T> elems = new ArrayList<T>(n);
-        for (int i = 0; i < n; i++) {
-            elems.add((T) values.get(i));
+    private void repairTop(int topIndex) {
+        T tmp = values.get(topIndex);
+        int succ = findSuccessor(topIndex * d + 1, topIndex * d + d);
+        while (succ < values.size() && less( tmp, (T) values.get(succ) )) {        
+            values.set(topIndex, values.get(succ));    
+            topIndex = succ;
+            succ = findSuccessor(succ * d + 1, succ * d + d);
         }
-        return elems; 
+        values.set(topIndex, tmp);
     }
-
-    public ArrayList<T> removeNLargest(int n) {
-        ArrayList<T> elems = nLargest(n);
-        assert isHeap();
-
-        // TODO: faster?? 
-        for (int i = 0; i < n; i++) {
-            System.out.println("deuquq i = "+ i);
-            dequeue();
-            assert isHeap();
+    
+    private int findSuccessor(int from, int to) {
+        int succ = from;
+        for (int i = from + 1; i <= to && i < values.size(); i++) {
+            if (less( (T) values.get(succ), values.get(i) )) {
+                succ = i;
+            }
         }
-        System.out.println("BEFORE 'removeNLargest' assert isHeao()");
-        // assert isHeap();
-        System.out.println("AFTER 'removeNLargest' assert isHeao()");
-        return elems; 
-    }
-
-    public void heapify(int a) {
-        T tmp = (T) values.get(a);
-        while ((a > 0) && (less((T) values.get(parent(a)), tmp))) {
-            values.set(a, values.get(parent(a)));
-            a = parent(a);
-        }
-        values.set(a, tmp);
-        assert isHeap();
+        return succ;
     }
 
     public boolean isHeap() {
-        return isHeap(1);
-    }
+        for (int i = 1; i < values.size() ; i++) {
+            // System.out.println(" i = " + i + "    parent(i) = " + parent(i));
+            // System.out.println(" values.get(i) = " +  values.get(i)    + "    values.get(parent(i)  = " + values.get(parent(i)));
 
-    protected boolean isHeap(int i) {
-        while (i < values.size() && !less((T) values.get(parent(i)), (T) values.get(i))) {
-            i++;
+            if (!less((T) values.get(i),  (T) values.get(parent(i)))) {
+                System.out.println(" values.get(i)   <   values.get(parent(i))    .....     " +   values.get(i) + " < "  + values.get(parent(i)));
+                return false;
+            }
         }
-        return i >= values.size()-d;
+        return true;
     }
 
     public int size() {
         return values.size();
     }
 
-    public void merge(QHeapQueue<T> queue) {
-        assert isHeap();
-        int cnt = queue.size();
-        for (int i = 0; i < cnt; i++) {
-            T val = (T) queue.removeMax();
-            insertUnordered(val);
-        }
-        heapify(values.size()-1);
-        assert isHeap();
-    }
-
     public boolean isEmpty() {
         return values.isEmpty();
-    }
-
-    private T dequeue() {
-        if (values.isEmpty())
-            throw new IllegalStateException("queue is empty!!   dequeue()");
-        T ret = (T) values.get(0);
-        System.out.println("\n\ndeuque \n\n");
-        System.out.println("BEFORE move values[0] = " + values.get(0) + "   values[size()-1] = " +values.get(values.size()-1));
-        
-        System.out.println("\n\nBEFORE queue = " + this +"\n\n\n");
-
-        
-        values.set(0, values.get(values.size()-1));
-        System.out.println("AFTER move values[0] = " + values.get(0) + "   values[size()-1] = " +values.get(values.size()-1));
-        values.remove(values.size()-1);
-        System.out.println("AFTER remove of last element values[0] = " + values.get(0) + "   values[size()-1] = " +values.get(values.size()-1));
-
-
-        System.out.println("\n\nAFTERs swapping and deleting queue = " + this);
-
-        if (!values.isEmpty()) {
-            downHeap(0);
-        }
-        System.out.println("\n\nAFTERs downHeap()  = " + this +"\n\n\n");
-        assert isHeap();
-        return ret; 
-    }
-
-    private void downHeap(int i) {
-        int child;
-        T tmp = (T) values.get(i);
-        while (kthChild(i, 1) < values.size()) {
-            child = getMinChild(i);
-            if (less(tmp, (T) values.get(child))) {
-                values.set(i, values.get(child));
-            } else {
-                break;
-            }
-            i = child;
-        }
-        values.set(i, tmp);
-    }
-
-    private int getMinChild(int i) {
-        int c = kthChild(i, 1);
-        int k = 2;
-        int pos = kthChild(i, k);
-        while ((k <= d) && (pos < values.size())) {
-            if (less((T) values.get(c), (T) values.get(pos)))
-                c = pos;
-            pos = kthChild(i, k++);
-        }    
-        return c;
     }
 
     @Override
@@ -199,6 +131,115 @@ public class QHeapQueue<T extends Comparable<T>>  {
     }
 
     private boolean less(T a, T b) {
-        return a.compareTo(b) < 0;
+        return a.compareTo(b) <= 0;
     }
+
+    public void merge(QHeapQueue<T> queue) {
+        assert isHeap();
+        int cnt = queue.size();
+        for (int i = 0; i < cnt; i++) {
+            T val = (T) queue.removeMax();
+            insertUnordered(val);
+        }
+        heapify();
+        assert isHeap();
+    }
+
+    public void heapify() {
+        System.out.println("-------------------------------");
+        System.out.println("heapfiy()    BEGIN");
+        System.out.println("-------------------------------");
+
+        System.out.println("heap BEFORE: " + this);
+
+
+        for (int i = parent(values.size() - 1); i >= 0; i--) {
+            System.out.println("heapfiy()");
+            heapifyDown(i);
+        }
+        System.out.println("heap AFTER: " + this);
+        System.out.println("-------------------------------");
+        System.out.println("heapfiy()    END");
+        System.out.println("-------------------------------");    
+    }
+
+    public void heapifyDown(int i) {
+        // Heapify(A, i, n, d)
+        //     largest ← i
+        //     for l ←Child(i, 1) to Child(i, d) ✄ loop through all children of i
+        //     do if l ≤ n and A[l] > A[largest]
+        //     then largest ← l
+        //     if largest 6= i
+        //     then exchange A[i] ↔ A[largest]
+        //     Heapify(A, largest)
+        System.out.println("i  = " + i  );
+        int largest = i; 
+        for (int k = 1; k <= d; k++) {
+            int l = kthChild(i, k);
+            System.out.println("i  = " + i  + "   l = " + l + "  largest  = " + largest );
+            if (l < values.size()) {
+                System.out.println("values.get(l) = " + values.get(l)  + "   = " + values.get(largest) );
+            }
+            
+            if (l < values.size() && less( (T) values.get(largest), (T) values.get(l))) {
+                largest = l;
+            }
+        }
+        if (largest != i) {
+            Collections.swap(values, i, largest);
+            heapifyDown(largest);
+        }
+    }
+
+    // private void heapifyDown(int ind) {
+    //     System.out.println("-------------------------------");
+    //     System.out.println("heapifyDown(" + ind + ")    BEGIN");
+    //     System.out.println("-------------------------------");
+    //     // int child;
+    //     // int tmp = heap[ ind ];
+    //     // while (kthChild(ind, 1) < heapSize)
+    //     // {
+    //     //     child = minChild(ind);
+    //     //     if (heap[child] < tmp)
+    //     //         heap[ind] = heap[child];
+    //     //     else
+    //     //         break;
+    //     //     ind = child;
+    //     // }
+    //     // heap[ind] = tmp;
+    //     int child;
+    //     T tmp = values.get(ind);
+    //     while (kthChild(ind, 1) < values.size()) {
+    //         child = minChild(ind);
+    //         System.out.println("child = " + child  + "   ind = " + ind + "  values.get(child)  = " + values.get(child) + "   tmp " + tmp);
+    //         if (less (tmp, values.get(child) )) {
+    //             System.out.println("tmp < values.get(child)");
+    //             values.set(ind, values.get(child)); // heap[ind] = heap[child];
+    //         }
+    //         else
+    //             break;
+    //         ind = child;
+    //     }
+    //     // heap[ind] = tmp;
+    //     values.set(ind, tmp);
+    //     System.out.println("-------------------------------");
+    //     System.out.println("heapifyDown(" + ind + ")    END");
+    //     System.out.println("-------------------------------");
+    // }
+
+    private int minChild(int ind) {
+        int bestChild = kthChild(ind, 1);
+        int k = 2;
+        int pos = kthChild(ind, k);
+        while ((k <= d) && (pos < values.size())) 
+        {
+            if (less ((T) values.get(bestChild), (T)values.get(pos))) 
+                bestChild = pos;
+            pos = kthChild(ind, k++);
+        }    
+        return bestChild;
+    }
+
+    
+    
 }

@@ -251,70 +251,70 @@ public class RunTimeTests {
         QHeapQueue<Integer> h = new QHeapQueue<Integer> (1);
         ArrayList<Integer> res; 
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test insert()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test insert()");
+        System.out.println("--------------------------------------");
 
         
-        // for (int k = 0; k < dValues.length; k++) {
-        //     for (int i = 0; i < cntElements.length; i++) {
+        for (int k = 0; k < dValues.length; k++) {
+            for (int i = 0; i < cntElements.length; i++) {
             
-        //         h = getDummyQHeap(cntElements[i], dValues[k]);        
+                h = getDummyQHeap(cntElements[i], dValues[k]);        
 
-        //         dur = 0;
+                dur = 0;
 
-        //         for (int j = 0; j < iterations; j++) {
-        //             x = r.nextInt(max);
-        //             start = System.nanoTime();
-        //             h.insert(x);
-        //             end = System.nanoTime();
-        //             dur += (end - start);
-        //         }
-        //         durationInsert[k][i] = dur / iterations;
-        //     }
-        // }
+                for (int j = 0; j < iterations; j++) {
+                    x = r.nextInt(max);
+                    start = System.nanoTime();
+                    h.insert(x);
+                    end = System.nanoTime();
+                    dur += (end - start);
+                }
+                durationInsert[k][i] = dur / iterations;
+            }
+        }
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test max()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test max()");
+        System.out.println("--------------------------------------");
 
-        // for (int k = 0; k < dValues.length; k++) {
-        //     for (int i = 0; i < cntElements.length; i++) {
+        for (int k = 0; k < dValues.length; k++) {
+            for (int i = 0; i < cntElements.length; i++) {
             
-        //         h = getDummyQHeap(cntElements[i], dValues[k]);        
+                h = getDummyQHeap(cntElements[i], dValues[k]);        
 
-        //         dur = 0;
+                dur = 0;
 
-        //         for (int j = 0; j < iterations; j++) {
-        //             x = r.nextInt(max);
-        //             start = System.nanoTime();
-        //             x = h.max();
-        //             end = System.nanoTime();
-        //             dur += (end - start);
-        //         }
-        //         durationMax[k][i] = dur / iterations;
-        //     }
-        // }
+                for (int j = 0; j < iterations; j++) {
+                    x = r.nextInt(max);
+                    start = System.nanoTime();
+                    x = h.max();
+                    end = System.nanoTime();
+                    dur += (end - start);
+                }
+                durationMax[k][i] = dur / iterations;
+            }
+        }
 
-        // System.out.println("--------------------------------------");
-        // System.out.println("test removeMax()");
-        // System.out.println("--------------------------------------");
+        System.out.println("--------------------------------------");
+        System.out.println("test removeMax()");
+        System.out.println("--------------------------------------");
 
-        // for (int k = 0; k < dValues.length; k++) {
-        //     for (int i = 0; i < cntElements.length; i++) {
-        //         dur = 0;
+        for (int k = 0; k < dValues.length; k++) {
+            for (int i = 0; i < cntElements.length; i++) {
+                dur = 0;
 
-        //         for (int j = 0; j < iterations; j++) {
+                for (int j = 0; j < iterations; j++) {
 
-        //             h = getDummyQHeap(cntElements[i], dValues[k]);   
-        //             start = System.nanoTime();
-        //             x = h.removeMax();
-        //             end = System.nanoTime();
-        //             dur += (end - start);
-        //         }
-        //         durationMax[k][i] = dur / iterations;
-        //     }
-        // }
+                    h = getDummyQHeap(cntElements[i], dValues[k]);   
+                    start = System.nanoTime();
+                    x = h.removeMax();
+                    end = System.nanoTime();
+                    dur += (end - start);
+                }
+                durationMax[k][i] = dur / iterations;
+            }
+        }
         
         // System.out.println("--------------------------------------");
         // System.out.println("test nLargest()");
@@ -338,39 +338,39 @@ public class RunTimeTests {
         //     }
         // }
 
-        System.out.println("--------------------------------------");
-        System.out.println("test removeNLargest()");
-        System.out.println("--------------------------------------");
+        // System.out.println("--------------------------------------");
+        // System.out.println("test removeNLargest()");
+        // System.out.println("--------------------------------------");
 
-        for (int k = 0; k < dValues.length; k++) {
-            for (int i = 0; i < cntElements.length; i++) {
-                dur = 0;
+        // for (int k = 0; k < dValues.length; k++) {
+        //     for (int i = 0; i < cntElements.length; i++) {
+        //         dur = 0;
 
-                for (int j = 0; j < iterations; j++) {
+        //         for (int j = 0; j < iterations; j++) {
 
-                    h = getDummyQHeap(cntElements[i], dValues[k]);   
+        //             h = getDummyQHeap(cntElements[i], dValues[k]);   
 
-                    System.out.println("current heap before removing 20 elements ---------------");
-                    System.out.println(h);
+        //             System.out.println("current heap before removing 20 elements ---------------");
+        //             System.out.println(h);
                     
-                    start = System.nanoTime();
-                    res = h.removeNLargest(nLargest);
-                    end = System.nanoTime();
+        //             start = System.nanoTime();
+        //             res = h.removeNLargest(nLargest);
+        //             end = System.nanoTime();
                     
-                    System.out.println("current heap AFTER removing 20 elements ---------------");
-                    System.out.println(h);
+        //             System.out.println("current heap AFTER removing 20 elements ---------------");
+        //             System.out.println(h);
                     
-                    if (!h.isHeap()) {
-                        System.out.println("XXXXXXXXXXXXXXXXXXX");
-                        System.exit(99);
-                    }
+        //             if (!h.isHeap()) {
+        //                 System.out.println("XXXXXXXXXXXXXXXXXXX");
+        //                 System.exit(99);
+        //             }
                     
-                    dur += (end - start);
-                }
-                durationRemoveNLargest[k][i] = dur / iterations;
-            }
-        }
-        System.out.println("AFTER  test removeNLargest()");
+        //             dur += (end - start);
+        //         }
+        //         durationRemoveNLargest[k][i] = dur / iterations;
+        //     }
+        // }
+        // System.out.println("AFTER  test removeNLargest()");
 
         // System.out.println("--------------------------------------");
         // System.out.println("test heapify()");
