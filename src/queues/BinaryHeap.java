@@ -89,33 +89,52 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
     //      [java] 	at tests.PQueueTest.testNLargest(PQueueTest.java:162)
     //      [java] 	at tests.PQueueTest.main(PQueueTest.java:179)
 
-    public ArrayList<T> nLargest(int n) {
-        if (values.size() < n)
-            throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
+    // public ArrayList<T> nLargest(int n) {
+    //     if (values.size() < n)
+    //         throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
 
-        ArrayList<T> elems = new ArrayList<T>(n);
-        for (int i = 0; i < n; i++) {
-            elems.add((T) values.get(i));
-        }
-        return elems; 
-    }
+    //     ArrayList<T> elems = new ArrayList<T>(n);
+    //     for (int i = 0; i < n; i++) {
+    //         elems.add((T) values.get(i));
+    //     }
+    //     return elems; 
+    // }
 
     public ArrayList<T> removeNLargest(int n) {
-        ArrayList<T> elems = nLargest(n);
-        values.subList(0, n).clear();
+        ArrayList<T> elems = new ArrayList<T>(n);
+        for (int i = 0; i < n; i++) {
+            elems.add(removeMax());
+        }
         assert isHeap();
         return elems; 
     }
 
-    public void merge(BinaryHeap<T> queue) {
-        assert isHeap();
+    // public void merge(BinaryHeap<T> queue) {
+    //     assert isHeap();
 
-        int cnt = queue.size();
-        for (int i = 0; i < cnt; i++) {
-            T val = (T) queue.removeMax();
-            insertUnordered(val);
-        }
+    //     int cnt = queue.size();
+    //     for (int i = 0; i < cnt; i++) {
+    //         T val = (T) queue.removeMax();
+    //         insertUnordered(val);
+    //     }
+    //     heapify(values.size()-1);
+    //     assert isHeap();
+    // }
+
+    public void merge(BinaryHeap<T> h) {
+        assert isHeap();
+        // int cnt = queue.size();
+        // for (int i = 0; i < cnt; i++) {
+        //     T val = (T) queue.removeMax();
+        //     insertUnordered(val);
+        // }
+        values.addAll(h.getValues());
         heapify(values.size()-1);
         assert isHeap();
     }
+
+    private ArrayList<T> getValues() {
+        return values; 
+    }
+
 }

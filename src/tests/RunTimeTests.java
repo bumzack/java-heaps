@@ -19,10 +19,10 @@ import utils.CsvFile;
 
 public class RunTimeTests {
 
-    private int[] cntElements = {  20, 10000, 100000  };            //25, 100,   1000,  10000, 100000
+    private int[] cntElements = {   100  };            //25, 100,   1000,  10000, 100000
     Integer max = 100000;                                       
     int iterations = 2;                                         // 2
-    int[] dValues = { 8, 16, 32 };
+    int[] dValues = { 8,  };
 
     int nLargest = 8;
 
@@ -105,25 +105,25 @@ public class RunTimeTests {
             durationRemoveMax[i] = dur / iterations;
         }
 
-        System.out.println("--------------------------------------");
-        System.out.println("test nLargest()");
-        System.out.println("--------------------------------------");
+        // System.out.println("--------------------------------------");
+        // System.out.println("test nLargest()");
+        // System.out.println("--------------------------------------");
         
-        for (int i = 0; i < cntElements.length; i++) {
-            BinaryHeap<Integer> h;
-            dur = 0;
-            ArrayList<Integer> res; 
-            // title[i] = Integer.toString(cntElements[i]);
-            for (int j = 0; j < iterations; j++) {
-                h = getDummyBinaryHeap(cntElements[i]);
+        // for (int i = 0; i < cntElements.length; i++) {
+        //     BinaryHeap<Integer> h;
+        //     dur = 0;
+        //     ArrayList<Integer> res; 
+        //     // title[i] = Integer.toString(cntElements[i]);
+        //     for (int j = 0; j < iterations; j++) {
+        //         h = getDummyBinaryHeap(cntElements[i]);
 
-                start = System.nanoTime();
-                res = h.nLargest(nLargest);
-                end = System.nanoTime();
-                dur += (end - start);
-            }
-            durationNLargest[i] = dur / iterations;
-        }
+        //         start = System.nanoTime();
+        //         res = h.nLargest(nLargest);
+        //         end = System.nanoTime();
+        //         dur += (end - start);
+        //     }
+        //     durationNLargest[i] = dur / iterations;
+        // }
         
         System.out.println("--------------------------------------");
         System.out.println("test removeNLargest()");

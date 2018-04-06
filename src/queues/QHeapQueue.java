@@ -137,15 +137,20 @@ public class QHeapQueue<T extends Comparable<T>>  {
         return a.compareTo(b) <= 0;
     }
 
-    public void merge(QHeapQueue<T> queue) {
+    public void merge(QHeapQueue<T> h) {
         assert isHeap();
-        int cnt = queue.size();
-        for (int i = 0; i < cnt; i++) {
-            T val = (T) queue.removeMax();
-            insertUnordered(val);
-        }
+        // int cnt = queue.size();
+        // for (int i = 0; i < cnt; i++) {
+        //     T val = (T) queue.removeMax();
+        //     insertUnordered(val);
+        // }
+        values.addAll(h.getValues());
         heapify();
         assert isHeap();
+    }
+
+    private ArrayList<T> getValues() {
+        return values; 
     }
 
     public void heapify() {
@@ -206,5 +211,27 @@ public class QHeapQueue<T extends Comparable<T>>  {
             pos = kthChild(ind, k++);
         }    
         return bestChild;
+    }
+
+
+    // public ArrayList<T> nLargest(int n) {        
+    //     if (values.size() < n)
+    //         throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
+
+    //     ArrayList<T> elems = new ArrayList<T>(n);
+    //     for (int i = 0; i < n; i++) {
+    //         elems.add(tmp.removeMax());
+    //     }
+    //     return elems; 
+    // }
+
+    public ArrayList<T> removeNLargest(int n) {
+        assert isHeap();
+
+        ArrayList<T> elems = new ArrayList<T>(n);
+        for (int i = 0; i < n; i++) {
+            elems.add(removeMax());
+        }
+        return elems; 
     }
 }

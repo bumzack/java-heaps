@@ -18,6 +18,18 @@ public class TestQHeapQueue {
 
     public TestQHeapQueue() {}
 
+    // private boolean assertArrayLists(ArrayList<Integer> a, ArrayList<Integer> b) {
+    //     if (a.size() == b.size()) {
+    //         for (int i = 0; i < a.size(); i++) {
+    //             if (!a.get(i).equals(b.get(i)))
+    //                 return false; 
+    //         }
+    //     } else {
+    //         return false; 
+    //     }
+    //     return true; 
+    // }
+
     public static QHeapQueue<Integer> getDummyDataInsert(int d) {
         QHeapQueue<Integer> h = new QHeapQueue<Integer>(d);
         h.insert(2);
@@ -112,59 +124,59 @@ public class TestQHeapQueue {
     public static<T> void assertArrayLists(ArrayList<T> arr, ArrayList<T> arr_expected) {
         assert arr.size() == arr_expected.size();
         for (int i = 0; i < arr.size(); i++) {
-            System.out.println("arr.get(i)           = " + arr.get(i));
-            System.out.println("arr_expected.get(i)  = " + arr_expected.get(i));
-            assert ((T) arr.get(i)) == ((T) arr_expected.get(i));
+            // System.out.println("arr.get(i)           = " + arr.get(i));
+            // System.out.println("arr_expected.get(i)  = " + arr_expected.get(i));
+            assert arr.get(i).equals(arr_expected.get(i));
         }
     }
 
-    public static void testNLargest(int d) {
-        System.out.println("--------------------------------------------------"); 
-        System.out.println("testing testNLargest() "); 
-        System.out.println("--------------------------------------------------"); 
+    // public static void testNLargest(int d) {
+    //     System.out.println("--------------------------------------------------"); 
+    //     System.out.println("testing testNLargest() "); 
+    //     System.out.println("--------------------------------------------------"); 
 
-        QHeapQueue<Integer> h = getDummyDataInsert(d);
-        System.out.println("heap contains the following elements: "); 
+    //     QHeapQueue<Integer> h = getDummyDataInsert(d);
+    //     System.out.println("heap contains the following elements: "); 
 
-        Integer max = 100000;
-        h.insert(max);
-        assert h.size() == 7;
-        assert h.max() == max;
-        System.out.println(h);
+    //     Integer max = 100000;
+    //     h.insert(max);
+    //     assert h.size() == 7;
+    //     assert h.max() == max;
+    //     System.out.println(h);
 
-        // this works :-(
-        // the code below does not 
-        // ArrayList<Integer> a = new ArrayList<Integer>(3);
-        // ArrayList<Integer> b = new ArrayList<Integer>(3);
-        // a.add(1);
-        // b.add(1);
-        // assertArrayLists(a, b);
+    //     // this works :-(
+    //     // the code below does not 
+    //     // ArrayList<Integer> a = new ArrayList<Integer>(3);
+    //     // ArrayList<Integer> b = new ArrayList<Integer>(3);
+    //     // a.add(1);
+    //     // b.add(1);
+    //     // assertArrayLists(a, b);
 
-        ArrayList<Integer> n3_expected = new ArrayList<Integer>(3);
-        n3_expected.add(max);        
-        Integer x = 200;
-        n3_expected.add(x);
-        Integer y = 100; 
-        n3_expected.add(y);
+    //     ArrayList<Integer> n3_expected = new ArrayList<Integer>(3);
+    //     n3_expected.add(max);        
+    //     Integer x = 200;
+    //     n3_expected.add(x);
+    //     Integer y = 100; 
+    //     n3_expected.add(y);
 
-        ArrayList<Integer> n3 = h.nLargest(3);
-        System.out.println("n3: " + n3);
-        System.out.println("n3_expected: " + n3_expected);
-        // assertArrayEquals(n3.size() == n3_expected.size());
+    //     ArrayList<Integer> n3 = h.nLargest(3);
+    //     System.out.println("n3: " + n3);
+    //     System.out.println("n3_expected: " + n3_expected);
+    //     // assertArrayEquals(n3.size() == n3_expected.size());
         
-        // TODO !!!!!!!
-        // assertArrayLists(n3, n3_expected);
+    //     // TODO !!!!!!!
+    //     // assertArrayLists(n3, n3_expected);
 
 
-        // elements still in list!
-        assert h.size() == 7;
-        assert h.max() == max;
+    //     // elements still in list!
+    //     assert h.size() == 7;
+    //     assert h.max() == max;
 
-        System.out.println(h);
-        System.out.println();
-        // System.out.println("largest 3 elements: " + n3);
-        System.out.println(); 
-    }
+    //     System.out.println(h);
+    //     System.out.println();
+    //     // System.out.println("largest 3 elements: " + n3);
+    //     System.out.println(); 
+    // }
 
     public static void testRemoveNLargest(int d) {
         System.out.println("--------------------------------------------------"); 
@@ -192,11 +204,24 @@ public class TestQHeapQueue {
         System.out.println("n4: " + n4);
         System.out.println("n4_expected: " + n4_expected);
         // TODO !!!!!!!
-        // assertArrayLists(n4, n4_expected);
+        assertArrayLists(n4, n4_expected);
 
         // elements have been removed
         assert h.size() == 3;
         assert h.max() == 10;
+
+        // for (int i = 0; i < n4.size(); i++) {
+        //     System.out.println("n4.get(i) = " +  n4.get(i) +   "    n4_expected.get(i) =  " + n4_expected.get(i));
+        //     if (n4.get(i)  instanceof Integer) {
+        //         System.out.println("OK");
+        //     }
+        //     if (n4_expected.get(i)  instanceof Integer) {
+        //         System.out.println("OK");
+        //     }
+        //     // assert  ((Integer) n4.get(i)) == ((Integer) n4_expected.get(i));
+        //     assert   n4.get(i).equals(n4_expected.get(i));
+        // }
+        // assert (n4.removeMax)
 
         System.out.println(h);
         System.out.println();
@@ -232,10 +257,9 @@ public class TestQHeapQueue {
         assert h1.size() == 9;
         assert h1.max() == 200;
 
-        System.out.println(h1);
         System.out.println();
         System.out.println("merged queues: ");
+        System.out.println(h1);
         System.out.println(); 
-        // h1.printAsTree();
     }
 }
