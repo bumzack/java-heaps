@@ -21,10 +21,10 @@ public class RunTimeTests {
 
     private static final int[] cntElements = {   10, 100, 1000, 10000  };
     private static final int  max = 100000;    
-    private static final int  iterations = 10;
-    int[] dValues = { 8, 16, 32, 64 };
+    private static final int  iterations = 20;
+    private static final int[] dValues = { 8, 16, 32, 64 };
     
-    int nLargest = 8;
+    private static final int nLargest = 8;
 
     public RunTimeTests() {
         // nothing to   
@@ -111,12 +111,11 @@ public class RunTimeTests {
         for (int i = 0; i < cntElements.length; i++) {
             BinaryHeap<Integer> h;
             dur = 0;
-            ArrayList<Integer> res; 
             for (int j = 0; j < iterations; j++) {
                 h = getDummyBinaryHeap(cntElements[i]);
 
                 start = System.nanoTime();
-                res = h.nLargest(nLargest);
+                h.nLargest(nLargest);
                 end = System.nanoTime();
                 dur += (end - start);
             }
@@ -130,12 +129,11 @@ public class RunTimeTests {
         for (int i = 0; i < cntElements.length; i++) {
             BinaryHeap<Integer> h;
             dur = 0;
-            ArrayList<Integer> res; 
             for (int j = 0; j < iterations; j++) {
                 h = getDummyBinaryHeap(cntElements[i]);
 
                 start = System.nanoTime();
-                res = h.removeNLargest(nLargest);
+                h.removeNLargest(nLargest);
                 end = System.nanoTime();
 
                 assert h.isHeap();
@@ -235,7 +233,6 @@ public class RunTimeTests {
         Random r = new Random();
 
         QHeapQueue<Integer> h = new QHeapQueue<Integer> (1);
-        // ArrayList<Integer> res; 
 
         System.out.println("--------------------------------------");
         System.out.println("test insert()");
@@ -305,14 +302,12 @@ public class RunTimeTests {
         for (int k = 0; k < dValues.length; k++) {
             for (int i = 0; i < cntElements.length; i++) {
                 dur = 0;
-                ArrayList<Integer> res; 
-
                 for (int j = 0; j < iterations; j++) {
 
                     h = getDummyQHeap(cntElements[i], dValues[k]);   
                     
                     start = System.nanoTime();
-                    res = h.nLargest(nLargest);
+                    h.nLargest(nLargest);
                     end = System.nanoTime();
                     dur += (end - start);
                 }
@@ -327,14 +322,12 @@ public class RunTimeTests {
         for (int k = 0; k < dValues.length; k++) {
             for (int i = 0; i < cntElements.length; i++) {
                 dur = 0;
-                ArrayList<Integer> res; 
-
                 for (int j = 0; j < iterations; j++) {
 
                     h = getDummyQHeap(cntElements[i], dValues[k]);
                     
                     start = System.nanoTime();
-                    res = h.removeNLargest(nLargest);
+                    h.removeNLargest(nLargest);
                     end = System.nanoTime();
                     
                     assert h.isHeap();

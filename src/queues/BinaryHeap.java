@@ -23,7 +23,7 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
 
     public BinaryHeap(BinaryHeap<T> h) {
         super(); 
-        values = h.getValues();
+        values = h.getValuesCopy();
     }
 
     public void insertUnordered(T elem) {
@@ -90,11 +90,13 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         if (values.size() < n)
             throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
 
+        System.out.println("bianryHeap.nLargest: size = " + size());
         BinaryHeap<T> tmp = new BinaryHeap<T>(this);
         ArrayList<T> elems = new ArrayList<T>(n);
         for (int i = 0; i < n; i++) {
             elems.add((T) tmp.removeMax());
         }
+        System.out.println("bianryHeap.nLargest: size = " + size());
         return elems; 
     }
 
@@ -116,5 +118,11 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
 
     private ArrayList<T> getValues() {
         return values; 
+    }
+
+    private ArrayList<T> getValuesCopy() {
+        ArrayList<T> tmp = new ArrayList<T>(values.size());
+        tmp.addAll(values);
+        return tmp; 
     }
 }

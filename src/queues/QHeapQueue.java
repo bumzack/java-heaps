@@ -28,7 +28,7 @@ public class QHeapQueue<T extends Comparable<T>>  {
     }
 
     public QHeapQueue(QHeapQueue<T> h) {
-        values = h.getValues();
+        values = h.getValuesCopy();
     }
 
     public void insertUnordered(T elem) {
@@ -144,6 +144,12 @@ public class QHeapQueue<T extends Comparable<T>>  {
 
     private ArrayList<T> getValues() {
         return values; 
+    }
+
+    private ArrayList<T> getValuesCopy() {
+        ArrayList<T> tmp = new ArrayList<T>(values.size());
+        tmp.addAll(values);
+        return tmp; 
     }
 
     // algorithm: https://www.cs.cmu.edu/~eugene/teach/algs03b/works/s6.pdf
