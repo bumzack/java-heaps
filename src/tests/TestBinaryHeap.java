@@ -129,11 +129,8 @@ public class TestBinaryHeap {
     }
 
     public static<T> void assertArrayLists(ArrayList<T> arr, ArrayList<T> arr_expected) {
-        // System.out.println("'assertArrayLists'   arr.size() = " + arr.size() + "   arr_expected.size() = " + arr_expected.size() );
         assert arr.size() == arr_expected.size();
         for (int i = 0; i < arr.size(); i++) {
-            System.out.println("arr.get(i)           = " + arr.get(i));
-            System.out.println("arr_expected.get(i)  = " + arr_expected.get(i));
             assert (arr.get(i).equals( (T) arr_expected.get(i) ));
         }
     }

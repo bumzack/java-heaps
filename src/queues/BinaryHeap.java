@@ -90,13 +90,11 @@ public class BinaryHeap<T extends Comparable<T>> extends Heap {
         if (values.size() < n)
             throw new IllegalArgumentException("not enough elements in queue!!   nLargest()");
 
-        System.out.println("bianryHeap.nLargest: size = " + size());
         BinaryHeap<T> tmp = new BinaryHeap<T>(this);
         ArrayList<T> elems = new ArrayList<T>(n);
         for (int i = 0; i < n; i++) {
             elems.add((T) tmp.removeMax());
         }
-        System.out.println("bianryHeap.nLargest: size = " + size());
         return elems; 
     }
 

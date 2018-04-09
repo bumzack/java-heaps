@@ -19,7 +19,7 @@ import utils.CsvFile;
 
 public class RunTimeTests {
 
-    private static final int[] cntElements = {   10, 100, 1000, 10000  };
+    private static final int[] cntElements = { 10, 100, 1000, 10000 };
     private static final int  max = 100000;    
     private static final int  iterations = 20;
     private static final int[] dValues = { 8, 16, 32, 64 };
@@ -27,7 +27,7 @@ public class RunTimeTests {
     private static final int nLargest = 8;
 
     public RunTimeTests() {
-        // nothing to   
+        // nothing to do 
     }
 
     public void testBinaryHeap(CsvFile f)   {    
